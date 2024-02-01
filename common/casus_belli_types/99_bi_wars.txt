@@ -99,7 +99,7 @@ barbarian_migration = {
 
 	# 宣戦布告時
 	on_declaration = {
-
+		on_declared_war = yes
 	}
 
 	# 勝利時
