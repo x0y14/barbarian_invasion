@@ -30,3 +30,22 @@ barbarian_migration_cb_cost = {
 		}
 	}
 }
+
+total_dev_lv = {
+	value = 0
+	add = {
+		every_sub_realm_county = {
+			add = this.development_level
+		}
+	}
+}
+
+# total_dev_lv_of_counties = {
+# 	value = 0
+# 	add = {
+# 		every_in_list = {
+# 			limit = { is_in_list = $TARGETS$ }
+# 			add = this.development_level
+# 		}
+# 	}
+# }

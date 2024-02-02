@@ -1,0 +1,15 @@
+﻿# BASE: Character, これと比べて
+# CHAR: Character, この人が
+
+# ex) 
+# AはBより肥沃な土地を持っているか?
+# 
+# held_higher_total_dev_lv_trigger = { CHAR = A BASE = B }
+# 全体として開発度高いですか?
+held_higher_total_dev_lv_trigger = {
+	total_dev_lv >= $CHAR$.total_dev_lv
+}
+# # CHARが保有している対象DUCHYの合計開発度は自分の土地より高いですか?
+# gain_targets_total_dev_lv_higher_than_mine_trigger = {
+# 	total_dev_lv >= $CHAR$.total_dev_lv_of_counties = { TARGETS = $TARGETS$ }
+# }

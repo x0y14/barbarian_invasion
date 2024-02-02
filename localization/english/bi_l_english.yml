@@ -1,4 +1,7 @@
 ﻿l_english:
+  barbarian_migration:0 "Barbarian Migration"
+  barbarian_migration_ai:0 "$barbarian_migration$"
+
   # CBで作成する公爵タイトル用に家の名前を取るやつ
   BARBARIAN_MIGRATION_HOUSE_NAME:0 "[attacker.GetHouse.GetBaseNameNoTooltip]"
 
