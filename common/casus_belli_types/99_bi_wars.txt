@@ -16,6 +16,17 @@ barbarian_migration = {
 	ai_can_target_all_titles = { always = yes }
 	# ai_score_mult = { value = varangian_adventure_ai_targeting_value }
 
+	# war score
+	# 移住なので、マジャールと同じく自分の領土が占領された際のスコアを少なく
+	max_attacker_score_from_battles = 200
+	max_defender_score_from_battles = 200
+	max_defender_score_from_occupation = 50
+	max_attacker_score_from_occupation = 150
+	full_occupation_by_defender_gives_victory = no
+	landless_attacker_needs_armies = no
+	attacker_capital_gives_war_score = no
+	
+
 
 	# CBが表示される条件
 	allowed_for_character = {
@@ -868,9 +879,6 @@ barbarian_migration = {
 	use_de_jure_wargoal_only = yes
 
 	attacker_wargoal_percentage = 0.8
-	
-	max_defender_score_from_occupation = 150
-	max_attacker_score_from_occupation = 150
 }
 
 # 移住
@@ -891,7 +899,17 @@ barbarian_migration_ai = {
 	ai_can_target_all_titles = { always = yes }
 	# ai_score_mult = { value = varangian_adventure_ai_targeting_value }
 
-
+	# war score
+	# 移住なので、マジャールと同じく自分の領土が占領された際のスコアを少なく
+	max_attacker_score_from_battles = 200
+	max_defender_score_from_battles = 200
+	max_defender_score_from_occupation = 50
+	max_attacker_score_from_occupation = 150
+	full_occupation_by_defender_gives_victory = no
+	landless_attacker_needs_armies = no
+	attacker_capital_gives_war_score = no
+	
+	
 	# CBが表示される条件
 	allowed_for_character = {
 		# テュルク系遊牧民
@@ -1892,9 +1910,6 @@ barbarian_migration_ai = {
 	use_de_jure_wargoal_only = yes
 
 	attacker_wargoal_percentage = 0.8
-	
-	max_defender_score_from_occupation = 150
-	max_attacker_score_from_occupation = 150
 }
 
 direct_barbarian_settlement = {
@@ -1903,7 +1918,21 @@ direct_barbarian_settlement = {
 
 	allowed_for_character = {
 		# テュルク遊牧民
-		has_government = tribal_government
+		OR = {
+			# 部族政体
+			has_government = tribal_government
+			# 部族政体ではないが、定住戦争をしている
+			# 戦争中に死んだ場合、政体が変わることがある
+			AND = {
+				is_at_war = yes
+				any_character_war = {
+					OR = {
+						using_cb = direct_barbarian_settlement
+						using_cb = undirect_barbarian_settlement
+					}
+				}
+			}
+		}
 		OR = {
 			culture = { has_cultural_pillar = heritage_turkic }
 			culture = { has_cultural_pillar = heritage_mongolic }
@@ -1917,10 +1946,9 @@ direct_barbarian_settlement = {
 		}
 		# is_ai = yes
 
-		# has_trait = adventurer
 		AND = {
 			has_variable = bm_cb_tally
-			var:bm_cb_tally >= 5
+			var:bm_cb_tally >= 4
 		}
 	}
 
@@ -1946,7 +1974,7 @@ direct_barbarian_settlement = {
 		NOT = { has_government = tribal_government }
 
 		# 王国以上
-		highest_held_title_tier >= tier_kingdom
+		# highest_held_title_tier >= tier_duchy
 	}
 	
 	# cbの設定
@@ -2004,6 +2032,7 @@ direct_barbarian_settlement = {
 					if = {
 						limit = {
 							scope:title_holder = { NOT = { is_at_war_with = scope:attacker } }
+							NOT = { scope:title_holder = scope:attacker }
 						}
 						scope:attacker = {
 							start_war = {
@@ -2447,6 +2476,8 @@ direct_barbarian_settlement = {
 							}
 						}
 					}
+					NOT = { is_close_or_extended_family_of = scope:attacker }
+					NOT = { is_primary_heir_of = scope:attacker }
 				}
 				create_title_and_vassal_change = {
 					type = independency
@@ -2494,7 +2525,7 @@ direct_barbarian_settlement = {
 					scope:attacker = {
 						trigger_event = {
 							id = culture_emergence_events.0001
-							days = 100
+							years = { 1 3 }
 						}
 					}
 					if = {
@@ -2874,8 +2905,6 @@ undirect_barbarian_settlement = {
 	}
 
 	# 戦争に関する設定
-	transfer_behavior = transfer
-	
 	on_primary_attacker_death = inherit
 	on_primary_defender_death = inherit
 	transfer_behavior = transfer
