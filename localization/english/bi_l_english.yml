@@ -10,3 +10,14 @@
 	BARBARIAN_MIGRATION_CB_INVASION_WAR_NAME:0 "[ATTACKER.GetCulture.GetName] Migration into the [TITLE.GetBaseName]"
 
   PREVIOUS_BARBARIAN_MIGRATION_COST:0 "Previous migrations"
+
+
+  # 定住
+  direct_barbarian_settlement:0 "$direct_barbarian_settlement$"
+  DIRECT_BARBARIAN_SETTLEMENT_NAME:0 "Settle in [TITLE.GetBaseName]"
+  DIRECT_BARBARIAN_SETTLEMENT_WAR_NAME:1 "[ATTACKER.GetCulture.GetName] Settlling in the [TITLE.GetBaseName]"
+  DIRECT_BARBARIAN_SETTLEMENT_WAR_NAME_BASE:0 ""
+
+  undirect_barbarian_settlement:0 "$direct_barbarian_settlement$"
+
+  BARBARIAN_CONFEDERATION_NAME:0 "[attacker.GetCulture.GetNameNoTooltip] Confederation"
