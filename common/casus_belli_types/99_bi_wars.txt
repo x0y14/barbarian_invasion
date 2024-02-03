@@ -1944,7 +1944,7 @@ direct_barbarian_settlement = {
 			}
 			faith = { has_doctrine_parameter = unreformed }
 		}
-		# is_ai = yes
+		is_ai = yes
 
 		AND = {
 			has_variable = bm_cb_tally
