@@ -2543,33 +2543,39 @@ direct_barbarian_settlement = {
 						years = { 1 3 }
 					}
 				}
+				# 未改革宗教を信仰していた場合のみ宗教変更
 				if = {
 					limit = {
-						scope:defender.faith = { NOT = { has_doctrine_parameter = unreformed } }
+						scope:attacker.faith = { has_doctrine_parameter = unreformed }
 					}
-					scope:attacker = {
-						set_character_faith_with_conversion = scope:defender.faith
-					}
-				}
-				else_if = {
-					limit = {
-						exists = scope:new_capital
-						scope:new_capital.faith = { NOT = { has_doctrine_parameter = unreformed } }
-					}
-					scope:attacker = {
-						set_character_faith_with_conversion = scope:new_capital.faith
-					}
-				}
-				else = {
-					random_list = {
-						50 = {
-							scope:attacker = {
-								set_character_faith_with_conversion = faith:maturidi
-							}
+					if = {
+						limit = {
+							scope:defender.faith = { NOT = { has_doctrine_parameter = unreformed } }
 						}
-						50 = {
-							scope:attacker = {
-								set_character_faith_with_conversion = faith:orthodox
+						scope:attacker = {
+							set_character_faith_with_conversion = scope:defender.faith
+						}
+					}
+					else_if = {
+						limit = {
+							exists = scope:new_capital
+							scope:new_capital.faith = { NOT = { has_doctrine_parameter = unreformed } }
+						}
+						scope:attacker = {
+							set_character_faith_with_conversion = scope:new_capital.faith
+						}
+					}
+					else = {
+						random_list = {
+							50 = {
+								scope:attacker = {
+									set_character_faith_with_conversion = faith:maturidi
+								}
+							}
+							50 = {
+								scope:attacker = {
+									set_character_faith_with_conversion = faith:orthodox
+								}
 							}
 						}
 					}
