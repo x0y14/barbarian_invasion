@@ -20,4 +20,4 @@
 
   undirect_barbarian_settlement:0 "$direct_barbarian_settlement$"
 
-  BARBARIAN_CONFEDERATION_NAME:0 "[attacker.GetCulture.GetNameNoTooltip] Confederation"
+  BARBARIAN_CONFEDERATION_NAME:0 "[attacker.GetCulture.GetNameNoTooltip]"
