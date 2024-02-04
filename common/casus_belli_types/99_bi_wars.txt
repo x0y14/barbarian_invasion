@@ -956,6 +956,8 @@ barbarian_migration_ai = {
 			sub_realm_size >= scope:attacker.sub_realm_size
 		}
 
+		NOT = { has_variable = bm_cb_tally }
+
 		# 防御側の合計開発度が、攻撃者を上回っている
 		# OR = {
 		# 	held_higher_total_dev_lv_trigger = { CHAR = scope:attacker }
@@ -1917,12 +1919,29 @@ direct_barbarian_settlement = {
 	group = invasion	#Switching this to event will render the CB invisible.
 
 	allowed_for_character = {
-		# テュルク遊牧民
 		OR = {
-			# 部族政体
-			has_government = tribal_government
-			# 部族政体ではないが、定住戦争をしている
-			# 戦争中に死んだ場合、政体が変わることがある
+			AND = {
+				# テュルク遊牧民
+				# 部族政体
+				has_government = tribal_government
+				OR = {
+					culture = { has_cultural_pillar = heritage_turkic }
+					culture = { has_cultural_pillar = heritage_mongolic }
+				}
+				OR = {
+					AND = {
+						current_date >= 1066.1.1
+						faith.religion = religion:islam_religion
+					}
+					faith = { has_doctrine_parameter = unreformed }
+				}
+				is_ai = yes
+
+				AND = {
+					has_variable = bm_cb_tally
+					var:bm_cb_tally >= 4
+				}
+			}
 			AND = {
 				is_at_war = yes
 				any_character_war = {
@@ -1932,23 +1951,6 @@ direct_barbarian_settlement = {
 					}
 				}
 			}
-		}
-		OR = {
-			culture = { has_cultural_pillar = heritage_turkic }
-			culture = { has_cultural_pillar = heritage_mongolic }
-		}
-		OR = {
-			AND = {
-				current_date >= 1066.1.1
-				faith.religion = religion:islam_religion
-			}
-			faith = { has_doctrine_parameter = unreformed }
-		}
-		is_ai = yes
-
-		AND = {
-			has_variable = bm_cb_tally
-			var:bm_cb_tally >= 4
 		}
 	}
 
@@ -1992,9 +1994,10 @@ direct_barbarian_settlement = {
 	max_defender_score_from_battles = 200
 	max_defender_score_from_occupation = 25
 	max_attacker_score_from_occupation = 150
-	full_occupation_by_defender_gives_victory = no
-	landless_attacker_needs_armies = no
+	full_occupation_by_defender_gives_victory = yes
+	check_all_defenders_for_ticking_war_score = yes
 	attacker_capital_gives_war_score = no
+	defender_capital_gives_war_score = no
 
 	valid_to_start = {
 		# exists = scope:defender
@@ -2069,6 +2072,15 @@ direct_barbarian_settlement = {
 					uses_supply = no
 					inheritable = no
 					name = turkic_tribal_event_troops
+				}
+			}
+		}
+
+		hidden_effect = {
+			scope:attacker = {
+				add_character_modifier = {
+					modifier = fp1_bathing_health_modifier
+					years = 10
 				}
 			}
 		}
@@ -2732,9 +2744,14 @@ undirect_barbarian_settlement = {
 	max_defender_score_from_battles = 200
 	max_defender_score_from_occupation = 25
 	max_attacker_score_from_occupation = 150
-	full_occupation_by_defender_gives_victory = no
-	landless_attacker_needs_armies = no
+	full_occupation_by_defender_gives_victory = yes
+	check_all_defenders_for_ticking_war_score = yes
 	attacker_capital_gives_war_score = no
+	defender_capital_gives_war_score = no
+
+	landless_attacker_needs_armies = no
+	white_peace_possible = no
+	allow_hostages = no
 
 	valid_to_start = {
 		# exists = scope:defender
