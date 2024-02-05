@@ -926,6 +926,8 @@ barbarian_migration_ai = {
 			faith = { has_doctrine_parameter = unreformed }
 		}
 		is_ai = yes
+
+		NOT = { has_character_flag = bm_cooldown }
 	}
 
 	# CBを使用する条件
@@ -1063,7 +1065,7 @@ barbarian_migration_ai = {
 				spawn_army = {
 					men_at_arms = {
 						type = horse_archers
-						stacks = 5
+						stacks = 6
 					}
 					men_at_arms = {
 						type = light_horsemen
@@ -1143,6 +1145,38 @@ barbarian_migration_ai = {
 
 	on_victory = {
 		scope:attacker = {
+			hidden_effect = {
+				if = {
+					limit = {
+						OR = {
+							has_game_rule = harm_safe
+							has_game_rule = harm_illusion_of_safety
+						}
+					}
+					scope:attacker = {
+						add_character_flag = {
+							flag = bm_cooldown
+							years = 10
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						OR = {
+							has_game_rule = harm_dangerous
+							has_game_rule = harm_tragic
+						}
+					}
+					scope:attacker = {
+						add_character_flag = {
+							flag = bm_cooldown
+							years = 5
+						}
+					}
+				}
+			}
+
+
 			## 領土変更
 			create_title_and_vassal_change = {
 				type = conquest
