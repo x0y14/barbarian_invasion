@@ -1,4 +1,4 @@
-﻿# 移住
+# 移住
 # 人用
 barbarian_migration = {
 	icon = invasion
@@ -45,6 +45,7 @@ barbarian_migration = {
 			faith = { has_doctrine_parameter = unreformed }
 		}
 		is_ai = no
+		highest_held_title_tier <= tier_duchy
 	}
 
 	# CBを使用する条件
