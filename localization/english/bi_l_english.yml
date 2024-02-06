@@ -21,3 +21,37 @@
   undirect_barbarian_settlement:0 "$direct_barbarian_settlement$"
 
   BARBARIAN_CONFEDERATION_NAME:0 "[attacker.GetCulture.GetNameNoTooltip]"
+
+  # 支援された侵略
+
+  bi_request_nomadic_invasion_interaction:0 "Request invasion"
+  recipient_secondary_bi_request_nomadic_invasion_interaction: "$recipient_secondary_fp3_request_turkic_invasion_interaction$"
+
+  sponsored_nomadic_invasion:0 "$SPONSORED_NOMADIC_INVASION_CB_NAME$"
+	SPONSORED_NOMADIC_INVASION_CB_WAR_NAME:0 "Sponsored Invasion of [TITLE.GetBaseNameNoTier]"
+	SPONSORED_NOMADIC_INVASION_CB_NAME:0 "Sponsored Invasion"
+  sponsored_nomadic_invasion_cb_result_tt: "If successful, a [duchy|E] will be seized and given to one of [secondary_recipient.GetFirstNamePossessive] [courtiers|E]"
+  SNI_Land_of_abundance_tt:0 "Land of abundance"
+  SNI_pagan_tt:0 "[recipient.GetShortUINameNoTooltip] is a pagan"
+  SNI_NO_ISLAM_TT:0 "[recipient.GetShortUINameNoTooltip] is a muslim"
+  SNI_DIPLOMATIC_RANGE_TT:0 "[recipient.GetShortUINameNoTooltip] is very far away"
+  SNI_Insurgent_presence_TT:0 "Insurgent presence"
+
+  bo_looters:0 "[invasion_beneficiary.GetCulture.GetNameNoTooltip] Nomads"
+
+  sponsored_nomadic_migration:0 "$bi_request_nomadic_invasion_interaction$"
+
+  # settings
+  rule_nomadic_invasion:0 "MOD Nomadic Invasion"
+
+  setting_nomadic_invasion_off:0 "Off"
+  setting_nomadic_invasion_off_desc:0 "Rulers of tribal governments that adhere to the Tengri religion or Islam never send out raiders."
+
+	setting_nomadic_invasion_occasional:0 "Occasional"
+  setting_nomadic_invasion_occasional_desc:0 "Rulers of tribal governments that adhere to the Tengri religion or Islam send out raiders every 30 years."
+
+	setting_nomadic_invasion_frequent:0 "Frequent"
+  setting_nomadic_invasion_frequent_desc:0 "Rulers of tribal governments that adhere to the Tengri religion or Islam send out raiders every 15 years."
+
+	setting_nomadic_invasion_apocalyptic:0 "Apocalyptic"
+  setting_nomadic_invasion_apocalyptic_desc:0 "Rulers of tribal governments that adhere to the Tengri religion or Islam always send out raiders."

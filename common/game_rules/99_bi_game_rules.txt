@@ -1,0 +1,12 @@
+﻿nomadic_invasion = {
+	categories = {
+		difficulty ai flavor
+	}
+
+	default = nomadic_invasion_off
+
+	nomadic_invasion_off = {}
+	nomadic_invasion_occasional = {}
+	nomadic_invasion_frequent = {}
+	nomadic_invasion_apocalyptic = {}
+}
