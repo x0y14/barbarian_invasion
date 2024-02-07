@@ -49,3 +49,133 @@ total_dev_lv = {
 # 		}
 # 	}
 # }
+
+# GAME RULES
+# barbarian_migration_frequency
+BARBARIAN_MIGRATION_CB_FOR_AI_COOLDOWN = {
+	value = 0
+	if = {
+		limit = { has_game_rule = barbarian_migration_frequency_occasional }
+		add = 10
+	}
+	else_if = {
+		limit = { has_game_rule = barbarian_migration_frequency_frequent }
+		add = 5
+	}
+	else_if = {
+		limit = { has_game_rule = barbarian_migration_frequency_apocalyptic }
+		add = 0
+	}
+}
+
+# barbarian_migration_protect
+BARBARIAN_MIGRATION_CB_FOR_AI_PROTECT = {
+	value = 0
+	if = {
+		limit = { has_game_rule = barbarian_migration_protect_normal }
+		add = 10
+	}
+	else_if = {
+		limit = { has_game_rule = barbarian_migration_protect_short }
+		add = 5
+	}
+	else_if = {
+		limit = { has_game_rule = barbarian_migration_protect_off }
+		add = 0
+	}
+}
+
+# barbarian_migration_strength_normal
+BARBARIAN_MIGRATION_CB_FOR_AI_ON_NUM_OF_horse_archers_ON_DECLARATION = {
+	value = 0
+
+	# 初めて
+	if = {
+		limit = { NOT = { has_variable = bm_cb_tally } }
+		add = 10
+	}
+
+	# 時代ボーナス
+	if = {
+		limit = { current_date >= 1066.1.1 }
+		add = 5
+	}
+
+	if = {
+		limit = { has_game_rule = barbarian_migration_strength_normal }
+		add = 6
+	}
+	else_if = {
+		limit = { has_game_rule = barbarian_migration_strength_hard }
+		add = 12
+	}
+}
+
+BARBARIAN_MIGRATION_CB_FOR_AI_NUM_OF_light_horsemen_ON_DECLARATION = {
+	value = 0
+
+	# 初めて
+	if = {
+		limit = { NOT = { has_variable = bm_cb_tally } }
+		add = 5
+	}
+
+	# 時代ボーナス
+	if = {
+		limit = { current_date >= 1066.1.1 }
+		add = 5
+	}
+
+	if = {
+		limit = { has_game_rule = barbarian_migration_strength_normal }
+		add = 5
+	}
+	else_if = {
+		limit = { has_game_rule = barbarian_migration_strength_hard }
+		add = 10
+	}
+}
+
+BARBARIAN_MIGRATION_CB_FOR_AI_NUM_OF_onager_ON_DECLARATION = {
+	value = 0
+	
+	# 時代ボーナス
+	if = {
+		limit = { current_date >= 1066.1.1 }
+		add = 5
+	}
+
+	if = {
+		limit = { has_game_rule = barbarian_migration_strength_normal }
+		add = 5
+	}
+	else_if = {
+		limit = { has_game_rule = barbarian_migration_strength_hard }
+		add = 10
+	}
+}
+
+
+DIRECT_BARBARIAN_SETTLEMENT_CB_FOR_AI_NUM_OF_horse_archers_DECLARATION = {
+	value = 0
+	add = 5
+}
+DIRECT_BARBARIAN_SETTLEMENT_CB_FOR_AI_NUM_OF_light_horsemen_DECLARATION = {
+	value = 0
+	add = 3
+}
+
+DIRECT_BARBARIAN_SETTLEMENT_CB_FOR_AI_NUM_OF_honager_DECLARATION = {
+	value = 0
+	add = 2
+}
+
+
+DIRECT_BARBARIAN_SETTLEMENT_CB_FOR_AI_NUM_OF_horse_archers_ON_VICTORY = {
+	value = 0
+	add = 20
+}
+DIRECT_BARBARIAN_SETTLEMENT_CB_FOR_AI_NUM_OF_light_horsemen_ON_VICTORY = {
+	value = 0
+	add = 10
+}
