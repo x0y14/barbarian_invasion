@@ -926,7 +926,7 @@ barbarian_migration_ai = {
 			}
 			faith = { has_doctrine_parameter = unreformed }
 		}
-		# is_ai = yes
+		is_ai = yes
 
 		NOT = { has_character_flag = bm_cooldown }
 	}
