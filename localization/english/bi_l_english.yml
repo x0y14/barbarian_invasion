@@ -1,15 +1,17 @@
 ﻿l_english:
   barbarian_migration:0 "Barbarian Migration"
-  barbarian_migration_ai:0 "$barbarian_migration$"
+  barbarian_migration_ai:0 "$barbarian_migration$ For AI"
 
   # CBで作成する公爵タイトル用に家の名前を取るやつ
   BARBARIAN_MIGRATION_HOUSE_NAME:0 "[attacker.GetHouse.GetBaseNameNoTooltip]"
 
 	BARBARIAN_MIGRATION_CB_NAME:0 "Migrate to [DEFENDER.GetPrimaryTitle.GetNameNoTier]"
+  BARBARIAN_MIGRATION_AI_CB_NAME:0 "$BARBARIAN_MIGRATION_CB_NAME$ For AI"
 	BARBARIAN_MIGRATION_CB_INVASION_WAR_NAME_BASE: ""
 	BARBARIAN_MIGRATION_CB_INVASION_WAR_NAME:0 "[ATTACKER.GetCulture.GetName] Migration into the [TITLE.GetBaseName]"
 
   PREVIOUS_BARBARIAN_MIGRATION_COST:0 "Previous migrations"
+  MIGRATION_CB_RAZE_COUNTY:0 "[attacker.GetFirstName] will raze the acquired land and get gold"
 
 
   # 定住
