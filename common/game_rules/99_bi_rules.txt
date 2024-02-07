@@ -1,0 +1,34 @@
+﻿barbarian_migration_strength = {
+	categories = {
+		difficulty flavor
+	}
+
+	default = barbarian_migration_strength_normal
+
+	barbarian_migration_strength_normal = {}
+	barbarian_migration_strength_hard = {}
+}
+
+barbarian_migration_frequency = {
+	categories = {
+		difficulty ai
+	}
+
+	default = barbarian_migration_frequency_occasional
+
+	barbarian_migration_frequency_occasional = {}
+	barbarian_migration_frequency_frequent = {}
+	barbarian_migration_frequency_apocalyptic = {}
+}
+
+barbarian_migration_protect = {
+	categories = {
+		difficulty ai
+	}
+
+	default = barbarian_migration_protect_normal
+
+	barbarian_migration_protect_normal = {}
+	barbarian_migration_protect_short = {}
+	barbarian_migration_protect_off = {}
+}

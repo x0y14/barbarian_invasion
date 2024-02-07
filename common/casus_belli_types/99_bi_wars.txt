@@ -928,7 +928,7 @@ barbarian_migration_ai = {
 		}
 		is_ai = yes
 
-		NOT = { has_character_flag = bm_cooldown }
+		NOT = { has_character_flag = bm_cb_cooldown }
 	}
 
 	# CBを使用する条件
@@ -965,6 +965,8 @@ barbarian_migration_ai = {
 			# 冒険者であるならば、仲間をも攻撃し、求める土地へ向かう
 			scope:attacker = { has_variable = bm_cb_tally }
 		}
+
+		NOT = { has_character_flag = bm_cb_protect }
 	}
 
 	allowed_against_character_display_regardless = {
@@ -1049,11 +1051,15 @@ barbarian_migration_ai = {
 				spawn_army = {
 					men_at_arms = {
 						type = horse_archers
-						stacks = 6
+						stacks = BARBARIAN_MIGRATION_CB_FOR_AI_ON_NUM_OF_horse_archers_ON_DECLARATION
 					}
 					men_at_arms = {
 						type = light_horsemen
-						stacks = 5
+						stacks = BARBARIAN_MIGRATION_CB_FOR_AI_NUM_OF_light_horsemen_ON_DECLARATION
+					}
+					men_at_arms = {
+						type = onager
+						stacks = BARBARIAN_MIGRATION_CB_FOR_AI_NUM_OF_onager_ON_DECLARATION
 					}
 					location = capital_province
 					uses_supply = no
@@ -1061,54 +1067,19 @@ barbarian_migration_ai = {
 					name = turkic_tribal_event_troops
 				}
 			}
-			if = {
-				limit = {
-					exists = capital_province
-					scope:attacker = { NOT = { has_variable = bm_cb_tally } }
-				}
-				spawn_army = {
-					men_at_arms = {
-						type = horse_archers
-						stacks = 10
-					}
-					men_at_arms = {
-						type = light_horsemen
-						stacks = 5
-					}
-					location = capital_province
-					uses_supply = yes
-					inheritable = yes
-					name = turkic_tribal_event_troops
+		}
+
+		hidden_effect = {
+			scope:attacker = {
+				add_character_flag = {
+					flag = bm_cb_cooldown
+					years = BARBARIAN_MIGRATION_CB_FOR_AI_PROTECT
 				}
 			}
-			if = {
-				limit = {
-					exists = capital_province
-					current_date >= 1066.1.1
-				}
-				spawn_army = {
-					men_at_arms = {
-						type = horse_archers
-						stacks = 5
-					}
-					men_at_arms = {
-						type = light_horsemen
-						stacks = 5
-					}
-					location = capital_province
-					uses_supply = yes
-					inheritable = yes
-					name = turkic_tribal_event_troops
-				}
-				spawn_army = {
-					men_at_arms = {
-						type = onager
-						stacks = 5
-					}
-					location = capital_province
-					uses_supply = yes
-					inheritable = yes
-					name = turkic_tribal_event_troops
+			scope:defender = {
+				add_character_flag = {
+					flag = bm_cb_protect
+					years = BARBARIAN_MIGRATION_CB_FOR_AI_PROTECT
 				}
 			}
 		}
@@ -1129,38 +1100,6 @@ barbarian_migration_ai = {
 
 	on_victory = {
 		scope:attacker = {
-			hidden_effect = {
-				if = {
-					limit = {
-						OR = {
-							has_game_rule = harm_safe
-							has_game_rule = harm_illusion_of_safety
-						}
-					}
-					scope:attacker = {
-						add_character_flag = {
-							flag = bm_cooldown
-							years = 10
-						}
-					}
-				}
-				else_if = {
-					limit = {
-						OR = {
-							has_game_rule = harm_dangerous
-							has_game_rule = harm_tragic
-						}
-					}
-					scope:attacker = {
-						add_character_flag = {
-							flag = bm_cooldown
-							years = 5
-						}
-					}
-				}
-			}
-
-
 			## 領土変更
 			create_title_and_vassal_change = {
 				type = conquest
@@ -1652,6 +1591,22 @@ barbarian_migration_ai = {
 					}
 				}
 				resolve_title_and_vassal_change = scope:change
+
+				# 拡散
+				hidden_effect = {
+					if = {
+						limit = {
+							has_game_rule = barbarian_migration_strength_hard
+							faith = scope:attacker.faith
+							OR = {
+								faith = faith:tengri_pagan
+								faith.religion = religion:islam_religion
+							}
+							NOT = { has_government = tribal_government }
+						}
+						change_government = tribal_government
+					}
+				}
 			}
 			# <-手放した土地
 
@@ -1701,35 +1656,78 @@ barbarian_migration_ai = {
 		custom_tooltip = {
 			text = MIGRATION_CB_RAZE_COUNTY
 			scope:attacker = {
-				every_realm_county = {
-					random_list = {
-						25 = {
-							change_development_progress_with_overflow = -200
-							scope:attacker = {
-								add_gold = 50
-								add_prestige_experience = 50
+				if = {
+					limit = {
+						has_game_rule = barbarian_migration_strength_normal
+					}
+					every_realm_county = {
+						random_list = {
+							25 = {
+								change_development_progress_with_overflow = -200
+								scope:attacker = {
+									add_gold = 50
+									add_prestige_experience = 50
+								}
+							}
+							55 = {
+								change_development_progress_with_overflow = -300
+								scope:attacker = {
+									add_gold = 60
+									add_prestige_experience = 60
+								}
+			
+							}
+							15 = {
+								change_development_progress_with_overflow = -400
+								scope:attacker = {
+									add_gold = 70
+									add_prestige_experience = 70
+								}
+							}
+							5 = {
+								change_development_progress_with_overflow = -500
+								scope:attacker = {
+									add_gold = 80
+									add_prestige_experience = 80
+								}
 							}
 						}
-						55 = {
-							change_development_progress_with_overflow = -300
-							scope:attacker = {
-								add_gold = 60
-								add_prestige_experience = 60
+					}
+				}
+				else_if = {
+					limit = {
+						has_game_rule = barbarian_migration_strength_hard
+					}
+					every_realm_county = {
+						random_list = {
+							15 = {
+								change_development_progress_with_overflow = -200
+								scope:attacker = {
+									add_gold = 50
+									add_prestige_experience = 50
+								}
 							}
-		
-						}
-						15 = {
-							change_development_progress_with_overflow = -400
-							scope:attacker = {
-								add_gold = 70
-								add_prestige_experience = 70
+							5 = {
+								change_development_progress_with_overflow = -300
+								scope:attacker = {
+									add_gold = 60
+									add_prestige_experience = 60
+								}
+			
 							}
-						}
-						5 = {
-							change_development_progress_with_overflow = -500
-							scope:attacker = {
-								add_gold = 80
-								add_prestige_experience = 80
+							5 = {
+								change_development_progress_with_overflow = -400
+								scope:attacker = {
+									add_gold = 70
+									add_prestige_experience = 70
+								}
+							}
+							75 = {
+								change_development_progress_with_overflow = -500
+								scope:attacker = {
+									add_gold = 80
+									add_prestige_experience = 80
+								}
 							}
 						}
 					}
@@ -2076,15 +2074,15 @@ direct_barbarian_settlement = {
 				spawn_army = {
 					men_at_arms = {
 						type = horse_archers
-						stacks = 5
+						stacks = DIRECT_BARBARIAN_SETTLEMENT_CB_FOR_AI_NUM_OF_horse_archers_DECLARATION
 					}
 					men_at_arms = {
 						type = light_horsemen
-						stacks = 3
+						stacks = DIRECT_BARBARIAN_SETTLEMENT_CB_FOR_AI_NUM_OF_light_horsemen_DECLARATION
 					}
 					men_at_arms = {
 						type = onager
-						stacks = 2
+						stacks = DIRECT_BARBARIAN_SETTLEMENT_CB_FOR_AI_NUM_OF_honager_DECLARATION
 					}
 					location = capital_province
 					uses_supply = no
@@ -2626,11 +2624,11 @@ direct_barbarian_settlement = {
 						spawn_army = {
 							men_at_arms = {
 								type = horse_archers
-								stacks = 20
+								stacks = DIRECT_BARBARIAN_SETTLEMENT_CB_FOR_AI_NUM_OF_horse_archers_ON_VICTORY
 							}
 							men_at_arms = {
 								type = light_horsemen
-								stacks = 10
+								stacks = DIRECT_BARBARIAN_SETTLEMENT_CB_FOR_AI_NUM_OF_light_horsemen_ON_VICTORY
 							}
 							location = capital_province
 							uses_supply = no

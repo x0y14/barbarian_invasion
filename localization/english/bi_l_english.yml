@@ -23,3 +23,41 @@
   undirect_barbarian_settlement:0 "$direct_barbarian_settlement$"
 
   BARBARIAN_CONFEDERATION_NAME:0 "[attacker.GetCulture.GetNameNoTooltip]"
+
+
+
+  # Rules
+
+  # 強さ
+  rule_barbarian_migration_strength:0 "MOD Migration Strength"
+  ## 普通
+  setting_barbarian_migration_strength_normal:0 "Normal"
+  setting_barbarian_migration_strength_normal_desc:0 "The barbarians may acquire a #high small#! number of troops at the start of the war."
+  ## 強い
+  setting_barbarian_migration_strength_hard:0 "Hard"
+  setting_barbarian_migration_strength_hard_desc:0 "The barbarians can gain a #high large#! number of troops at the start of the war. #EMP This could have a major impact on the Persian Struggle#!."
+
+
+  # 頻度
+  rule_barbarian_migration_frequency:0 "MOD Migration Frequency"
+  ## たまに
+  setting_barbarian_migration_frequency_occasional:0 "Occasional"
+  setting_barbarian_migration_frequency_occasional_desc:0 "The barbarians may conduct migration wars every #V 10#! years."
+  ## 頻繁
+  setting_barbarian_migration_frequency_frequent:0 "Frequent"
+  setting_barbarian_migration_frequency_frequent_desc:0 "The barbarians may conduct migration wars every #V 5#! years."
+  ## 終末的
+  setting_barbarian_migration_frequency_apocalyptic:0 "Apocalyptic"
+  setting_barbarian_migration_frequency_apocalyptic_desc:0 "The barbarians may conduct migration wars with #high No cooldown#!. #EMP This could have a major impact on the Persian Struggle#!."
+
+  # クールダウン
+  rule_barbarian_migration_protect:0 "MOD Migration Protect"
+  ## 普通
+  setting_barbarian_migration_protect_normal:0 "Normal"
+  setting_barbarian_migration_protect_normal_desc:0 "If selected for the Migration War, they are protected from the Migration War for #V 10#! years."
+  ## 短い
+  setting_barbarian_migration_protect_short:0 "Short"
+  setting_barbarian_migration_protect_short_desc:0 "If selected for the Migration War, they are protected from the Migration War for #V 5#! years."
+  ## 終末的
+  setting_barbarian_migration_protect_off:0 "Off"
+  setting_barbarian_migration_protect_off_desc:0 "There is #V always#! the possibility of being selected for a migration war. #EMP This could have a major impact on the Persian Struggle#!."
