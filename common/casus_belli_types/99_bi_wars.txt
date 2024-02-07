@@ -1,4 +1,4 @@
-# 移住
+﻿# 移住
 # 人用
 barbarian_migration = {
 	icon = invasion
@@ -926,7 +926,7 @@ barbarian_migration_ai = {
 			}
 			faith = { has_doctrine_parameter = unreformed }
 		}
-		is_ai = yes
+		# is_ai = yes
 
 		NOT = { has_character_flag = bm_cooldown }
 	}
@@ -949,33 +949,51 @@ barbarian_migration_ai = {
 			}
 		}
 
-		# 部族整体ではない
-		NOT = { has_government = tribal_government }
-
-		# 公爵領以上を持っている人か攻撃者より領土の広い人
-		# TODO: 長期的に見て足場となる場合は短期的に貧乏になっても攻撃を行う可能性
 		OR = {
-			highest_held_title_tier >= tier_duchy
-			sub_realm_size >= scope:attacker.sub_realm_size
+			# テングリであれば、異教徒全般
+			AND = {
+				scope:attacker.faith = faith:tengri_pagan
+				scope:attacker.faith.religion = religion:islam_religion
+				NOT = { faith = scope:attacker.faith }
+			}
+
+			# これ基本
+			# 部族以外の政体
+			NOT = { has_government = tribal_government }
+
+			# 熟練
+			# 冒険者であるならば、仲間をも攻撃し、求める土地へ向かう
+			scope:attacker = { has_variable = bm_cb_tally }
 		}
+	}
 
-		NOT = { has_variable = bm_cb_tally }
-
-		# 防御側の合計開発度が、攻撃者を上回っている
-		# OR = {
-		# 	held_higher_total_dev_lv_trigger = { CHAR = scope:attacker }
-		# 	# TODO: 移動先が現在の土地より肥沃か?
-		# 	scope:attacker = {
-		# 		gain_targets_total_dev_lv_higher_than_mine_trigger = {
-		# 			CHAR = scope:defender
-		# 			TARGETS = scope:target_titles
-		# 		}
-		# 	}
-		# }
+	allowed_against_character_display_regardless = {
+		is_independent_ruler = yes
+		# highest_held_title_tier >= tier_duchy
+		# 攻撃者より総合開発どが低い人には使用できない
 		held_higher_total_dev_lv_trigger = { CHAR = scope:attacker }
 	}
 
 	valid_to_start = {
+		scope:attacker = {
+			total_dev_lv < {
+				value = 0
+				add = {
+					scope:target = {
+						every_in_de_jure_hierarchy = {
+							limit = {
+								tier = tier_county
+								OR = {
+									holder = scope:defender
+									holder = { is_vassal_or_below_of = scope:defender }
+								}
+							}
+							add = this.development_level
+						}
+					}
+				}
+			}
+		}
 	}
 
 	# こんなときCBが無効になるよ
@@ -987,6 +1005,7 @@ barbarian_migration_ai = {
 					list = target_titles
 					any_in_de_jure_hierarchy = {
 						tier = tier_county
+						exists = holder
 						holder = {
 							target_is_same_character_or_above = scope:defender
 						}
@@ -999,42 +1018,6 @@ barbarian_migration_ai = {
 					is_independent_ruler = no
 					# 王国以上を持っているとき
 					highest_held_title_tier >= tier_kingdom
-				}
-			}
-		}
-
-		NOT = {	
-			# 最終的に得られるrealmsizeは現在を上回るか?
-			# -1まで許容
-			any_in_list = {
-				list = target_titles
-				any_in_de_jure_hierarchy = {
-					tier = tier_county
-					OR = {
-						holder = scope:defender
-						holder = { is_vassal_or_below_of = scope:defender }
-					}
-					count >= {
-						value = scope:attacker.sub_realm_size
-						add = -2
-					}
-				}
-			}
-		}
-
-		scope:attacker = {
-			# gain_targets_total_dev_lv_higher_than_mine_trigger = {
-			# 	CHAR = scope:defender
-			# 	TARGETS = target_titles
-			# }
-			total_dev_lv > {
-				value = 0
-				add = {
-					every_in_list = {
-						list = target_titles
-						limit = { tier = tier_county }
-						add = this.development_level
-						}
 				}
 			}
 		}
@@ -1715,39 +1698,39 @@ barbarian_migration_ai = {
 		# 奪った土地全ての男爵領の開発度を下げてその分お金と名声を得る
 		# 移動し続けてほしい
 		# tooltipにしても良いかも
-		hidden_effect = {
-			every_in_list = {
-				list = target_titles
-				limit =  { tier = tier_county }
-	
-				random_list = {
-					25 = {
-						change_development_progress_with_overflow = -200
-						scope:attacker = {
-							add_gold = 200
-							add_prestige_experience = 200
+		custom_tooltip = {
+			text = MIGRATION_CB_RAZE_COUNTY
+			scope:attacker = {
+				every_realm_county = {
+					random_list = {
+						25 = {
+							change_development_progress_with_overflow = -200
+							scope:attacker = {
+								add_gold = 50
+								add_prestige_experience = 50
+							}
 						}
-					}
-					25 = {
-						change_development_progress_with_overflow = -300
-						scope:attacker = {
-							add_gold = 300
-							add_prestige_experience = 300
+						55 = {
+							change_development_progress_with_overflow = -300
+							scope:attacker = {
+								add_gold = 60
+								add_prestige_experience = 60
+							}
+		
 						}
-
-					}
-					25 = {
-						change_development_progress_with_overflow = -400
-						scope:attacker = {
-							add_gold = 400
-							add_prestige_experience = 400
+						15 = {
+							change_development_progress_with_overflow = -400
+							scope:attacker = {
+								add_gold = 70
+								add_prestige_experience = 70
+							}
 						}
-					}
-					25 = {
-						change_development_progress_with_overflow = -500
-						scope:attacker = {
-							add_gold = 500
-							add_prestige_experience = 500
+						5 = {
+							change_development_progress_with_overflow = -500
+							scope:attacker = {
+								add_gold = 80
+								add_prestige_experience = 80
+							}
 						}
 					}
 				}
@@ -1757,7 +1740,7 @@ barbarian_migration_ai = {
 							limit = { NOT = { has_province_modifier = recently_looted_modifier } }
 							add_province_modifier = {
 								modifier = recently_looted_modifier
-								years = 3
+								years = 5
 							}
 						}
 					}
@@ -1940,7 +1923,7 @@ barbarian_migration_ai = {
 
 	war_name = "BARBARIAN_MIGRATION_CB_INVASION_WAR_NAME"
 	war_name_base = "BARBARIAN_MIGRATION_CB_INVASION_WAR_NAME_BASE"
-	cb_name = "BARBARIAN_MIGRATION_CB_NAME"
+	cb_name = "BARBARIAN_MIGRATION_AI_CB_NAME"
 
 	interface_priority = 79
 
