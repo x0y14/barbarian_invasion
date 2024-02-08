@@ -62,10 +62,6 @@ BARBARIAN_MIGRATION_CB_FOR_AI_COOLDOWN = {
 		limit = { has_game_rule = barbarian_migration_frequency_frequent }
 		add = 5
 	}
-	else_if = {
-		limit = { has_game_rule = barbarian_migration_frequency_apocalyptic }
-		add = 0
-	}
 }
 
 # barbarian_migration_protect
@@ -78,10 +74,6 @@ BARBARIAN_MIGRATION_CB_FOR_AI_PROTECT = {
 	else_if = {
 		limit = { has_game_rule = barbarian_migration_protect_short }
 		add = 5
-	}
-	else_if = {
-		limit = { has_game_rule = barbarian_migration_protect_off }
-		add = 0
 	}
 }
 
