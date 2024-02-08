@@ -1,0 +1,20 @@
+﻿bi_looter_template = {
+	age = { 16 32 }
+	culture = scope:actor.culture
+	faith = scope:actor.faith
+	gender_female_chance = {
+		if = {
+			limit = {scope:actor.faith = { has_doctrine = doctrine_gender_male_dominated } }
+			add = 0
+		}
+		else_if = {
+			limit = { scope:actor.faith = { has_doctrine = doctrine_gender_female_dominated } }
+			add = 100
+		}
+		else = {
+			add = 50
+		}
+	}
+	random_traits = yes
+	trait = reaver
+}

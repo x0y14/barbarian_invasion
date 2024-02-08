@@ -32,3 +32,16 @@ barbarian_migration_protect = {
 	barbarian_migration_protect_short = {}
 	barbarian_migration_protect_off = {}
 }
+
+barbarian_migration_landless_looters = {
+	categories = {
+		difficulty ai
+	}
+
+	default = barbarian_migration_landless_looters_never
+
+	barbarian_migration_landless_looters_never = {}
+	barbarian_migration_landless_looters_occasional = {}
+	barbarian_migration_landless_looters_frequent = {}
+	barbarian_migration_landless_looters_apocalyptic = {}
+}
