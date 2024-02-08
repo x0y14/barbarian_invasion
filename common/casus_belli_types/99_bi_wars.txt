@@ -3015,368 +3015,368 @@ undirect_barbarian_settlement = {
 }
 
 
-landless_raiders_invasion = {
-	icon = invasion
-	group = invasion
+# landless_raiders_invasion = {
+# 	icon = invasion
+# 	group = invasion
 
-	combine_into_one = yes
-	should_show_war_goal_subview = yes
-	mutually_exclusive_titles = { always = yes }
+# 	combine_into_one = yes
+# 	should_show_war_goal_subview = yes
+# 	mutually_exclusive_titles = { always = yes }
 
-	target_titles = all
-	target_title_tier = county
-	target_de_jure_regions_above = yes
-	ignore_effect = change_title_holder
+# 	target_titles = all
+# 	target_title_tier = county
+# 	target_de_jure_regions_above = yes
+# 	ignore_effect = change_title_holder
 
-	ai_can_target_all_titles = { always = yes }
-	# ai_score_mult = { value = varangian_adventure_ai_targeting_value }
+# 	ai_can_target_all_titles = { always = yes }
+# 	# ai_score_mult = { value = varangian_adventure_ai_targeting_value }
 
-	# war score
-	# 移住なので、マジャールと同じく自分の領土が占領された際のスコアを少なく
-	max_attacker_score_from_battles = 200
-	max_defender_score_from_battles = 200
-	max_defender_score_from_occupation = 50
-	max_attacker_score_from_occupation = 150
-	full_occupation_by_defender_gives_victory = no
-	landless_attacker_needs_armies = yes
-	attacker_capital_gives_war_score = no
+# 	# war score
+# 	# 移住なので、マジャールと同じく自分の領土が占領された際のスコアを少なく
+# 	max_attacker_score_from_battles = 200
+# 	max_defender_score_from_battles = 200
+# 	max_defender_score_from_occupation = 50
+# 	max_attacker_score_from_occupation = 150
+# 	full_occupation_by_defender_gives_victory = no
+# 	landless_attacker_needs_armies = yes
+# 	attacker_capital_gives_war_score = no
 
-	white_peace_possible = no
+# 	white_peace_possible = no
 	
 	
-	# CBが表示される条件
-	allowed_for_character = {
-		always = no
-	}
+# 	# CBが表示される条件
+# 	allowed_for_character = {
+# 		always = no
+# 	}
 
-	# CBを使用する条件
-	allowed_for_character_display_regardless = {
-	}
+# 	# CBを使用する条件
+# 	allowed_for_character_display_regardless = {
+# 	}
 
-	# 攻撃可能対象
-	allowed_against_character = {
-	}
+# 	# 攻撃可能対象
+# 	allowed_against_character = {
+# 	}
 
-	allowed_against_character_display_regardless = {
-	}
+# 	allowed_against_character_display_regardless = {
+# 	}
 
-	valid_to_start = {
-	}
+# 	valid_to_start = {
+# 	}
 
-	# こんなときCBが無効になるよ
-	should_invalidate = {
-		OR = {
-			# 守る側が攻撃対象を持たなくなってしまったとき?
-			NOT = {
-				any_in_list = {
-					list = target_titles
-					any_in_de_jure_hierarchy = {
-						tier = tier_county
-						exists = holder
-						holder = {
-							target_is_same_character_or_above = scope:defender
-						}
-					}
-				}
-			}
-		}
-	}
+# 	# こんなときCBが無効になるよ
+# 	should_invalidate = {
+# 		OR = {
+# 			# 守る側が攻撃対象を持たなくなってしまったとき?
+# 			NOT = {
+# 				any_in_list = {
+# 					list = target_titles
+# 					any_in_de_jure_hierarchy = {
+# 						tier = tier_county
+# 						exists = holder
+# 						holder = {
+# 							target_is_same_character_or_above = scope:defender
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
 
-	# 無効化されたと
-	on_invalidated_desc = msg_county_conquest_war_invalidated_message
+# 	# 無効化されたと
+# 	on_invalidated_desc = msg_county_conquest_war_invalidated_message
 	
-	on_invalidated = {}
+# 	on_invalidated = {}
 
-	# コスト
-	cost = {
-		prestige = {
-			value = 0
-			# multiply = common_cb_prestige_cost_multiplier
-		}
-	}
+# 	# コスト
+# 	cost = {
+# 		prestige = {
+# 			value = 0
+# 			# multiply = common_cb_prestige_cost_multiplier
+# 		}
+# 	}
 
-	# 宣戦布告時
-	on_declaration = {
-		on_declared_war = yes
-	}
+# 	# 宣戦布告時
+# 	on_declaration = {
+# 		on_declared_war = yes
+# 	}
 
-	# 勝利時
-	on_victory_desc = {
-		first_valid = {
-			triggered_desc = {
-				trigger = {
-					scope:attacker = { is_local_player = yes }
-				}
-				desc = county_conquest_cb_victory_desc_attacker
-			}
-			desc = county_conquest_cb_victory_desc
-		}
-	}
+# 	# 勝利時
+# 	on_victory_desc = {
+# 		first_valid = {
+# 			triggered_desc = {
+# 				trigger = {
+# 					scope:attacker = { is_local_player = yes }
+# 				}
+# 				desc = county_conquest_cb_victory_desc_attacker
+# 			}
+# 			desc = county_conquest_cb_victory_desc
+# 		}
+# 	}
 
-	on_victory = {
-		scope:attacker = { show_pow_release_message_effect = yes }
+# 	on_victory = {
+# 		scope:attacker = { show_pow_release_message_effect = yes }
 		
-		# 領土の接収
-		create_title_and_vassal_change = {
-			type = conquest
-			save_scope_as = change
-			add_claim_on_loss = yes
-		}
+# 		# 領土の接収
+# 		create_title_and_vassal_change = {
+# 			type = conquest
+# 			save_scope_as = change
+# 			add_claim_on_loss = yes
+# 		}
 
-		every_in_list = {
-			list = target_titles
-			limit = {
-				exists = holder
-				holder = {
-					OR = {
-						this = scope:defender
-						target_is_liege_or_above = scope:defender
-					}
-				}
-			}
-			change_title_holder = {
-				holder = scope:attacker
-				change = scope:change
-				take_baronies = yes
-			}
-			if = {
-				limit = { scope:attacker = { is_independent_ruler = no } }
-				becomes_independent = {
-					change = scope:change
-				}
-			}
-		}
-		resolve_title_and_vassal_change = scope:change
+# 		every_in_list = {
+# 			list = target_titles
+# 			limit = {
+# 				exists = holder
+# 				holder = {
+# 					OR = {
+# 						this = scope:defender
+# 						target_is_liege_or_above = scope:defender
+# 					}
+# 				}
+# 			}
+# 			change_title_holder = {
+# 				holder = scope:attacker
+# 				change = scope:change
+# 				take_baronies = yes
+# 			}
+# 			if = {
+# 				limit = { scope:attacker = { is_independent_ruler = no } }
+# 				becomes_independent = {
+# 					change = scope:change
+# 				}
+# 			}
+# 		}
+# 		resolve_title_and_vassal_change = scope:change
 
-		# 略奪者について
-		hidden_effect = {
-			scope:attacker = {
-				every_sub_realm_county = {
-					change_county_control = 100
-				}
-				every_sub_realm_barony = {
-					title_province = {
-						refill_garrison = yes
-						refill_levy = yes
-					}
-				}
-				if = {
-					limit = {
-						NOT = { has_government = tribal_government }
-					}
-					change_government = tribal_government
-				}
-			}
-		}
+# 		# 略奪者について
+# 		hidden_effect = {
+# 			scope:attacker = {
+# 				every_sub_realm_county = {
+# 					change_county_control = 100
+# 				}
+# 				every_sub_realm_barony = {
+# 					title_province = {
+# 						refill_garrison = yes
+# 						refill_levy = yes
+# 					}
+# 				}
+# 				if = {
+# 					limit = {
+# 						NOT = { has_government = tribal_government }
+# 					}
+# 					change_government = tribal_government
+# 				}
+# 			}
+# 		}
 
-		# raze
-		custom_tooltip = {
-			text = MIGRATION_CB_RAZE_COUNTY
-			scope:attacker = {
-				if = {
-					limit = {
-						has_game_rule = barbarian_migration_strength_normal
-					}
-					every_realm_county = {
-						random_list = {
-							25 = {
-								change_development_progress_with_overflow = -200
-								scope:attacker = {
-									add_gold = 50
-									add_prestige_experience = 50
-								}
-							}
-							55 = {
-								change_development_progress_with_overflow = -300
-								scope:attacker = {
-									add_gold = 60
-									add_prestige_experience = 60
-								}
+# 		# raze
+# 		custom_tooltip = {
+# 			text = MIGRATION_CB_RAZE_COUNTY
+# 			scope:attacker = {
+# 				if = {
+# 					limit = {
+# 						has_game_rule = barbarian_migration_strength_normal
+# 					}
+# 					every_realm_county = {
+# 						random_list = {
+# 							25 = {
+# 								change_development_progress_with_overflow = -200
+# 								scope:attacker = {
+# 									add_gold = 50
+# 									add_prestige_experience = 50
+# 								}
+# 							}
+# 							55 = {
+# 								change_development_progress_with_overflow = -300
+# 								scope:attacker = {
+# 									add_gold = 60
+# 									add_prestige_experience = 60
+# 								}
 			
-							}
-							15 = {
-								change_development_progress_with_overflow = -400
-								scope:attacker = {
-									add_gold = 70
-									add_prestige_experience = 70
-								}
-							}
-							5 = {
-								change_development_progress_with_overflow = -500
-								scope:attacker = {
-									add_gold = 80
-									add_prestige_experience = 80
-								}
-							}
-						}
-					}
-				}
-				else_if = {
-					limit = {
-						has_game_rule = barbarian_migration_strength_hard
-					}
-					every_realm_county = {
-						random_list = {
-							15 = {
-								change_development_progress_with_overflow = -200
-								scope:attacker = {
-									add_gold = 50
-									add_prestige_experience = 50
-								}
-							}
-							5 = {
-								change_development_progress_with_overflow = -300
-								scope:attacker = {
-									add_gold = 60
-									add_prestige_experience = 60
-								}
+# 							}
+# 							15 = {
+# 								change_development_progress_with_overflow = -400
+# 								scope:attacker = {
+# 									add_gold = 70
+# 									add_prestige_experience = 70
+# 								}
+# 							}
+# 							5 = {
+# 								change_development_progress_with_overflow = -500
+# 								scope:attacker = {
+# 									add_gold = 80
+# 									add_prestige_experience = 80
+# 								}
+# 							}
+# 						}
+# 					}
+# 				}
+# 				else_if = {
+# 					limit = {
+# 						has_game_rule = barbarian_migration_strength_hard
+# 					}
+# 					every_realm_county = {
+# 						random_list = {
+# 							15 = {
+# 								change_development_progress_with_overflow = -200
+# 								scope:attacker = {
+# 									add_gold = 50
+# 									add_prestige_experience = 50
+# 								}
+# 							}
+# 							5 = {
+# 								change_development_progress_with_overflow = -300
+# 								scope:attacker = {
+# 									add_gold = 60
+# 									add_prestige_experience = 60
+# 								}
 			
-							}
-							5 = {
-								change_development_progress_with_overflow = -400
-								scope:attacker = {
-									add_gold = 70
-									add_prestige_experience = 70
-								}
-							}
-							75 = {
-								change_development_progress_with_overflow = -500
-								scope:attacker = {
-									add_gold = 80
-									add_prestige_experience = 80
-								}
-							}
-						}
-					}
-				}
-				every_sub_realm_barony = {
-					title_province = {
-						if = {
-							limit = { NOT = { has_province_modifier = recently_looted_modifier } }
-							add_province_modifier = {
-								modifier = recently_looted_modifier
-								years = 5
-							}
-						}
-					}
-				}
-			}
-		}
+# 							}
+# 							5 = {
+# 								change_development_progress_with_overflow = -400
+# 								scope:attacker = {
+# 									add_gold = 70
+# 									add_prestige_experience = 70
+# 								}
+# 							}
+# 							75 = {
+# 								change_development_progress_with_overflow = -500
+# 								scope:attacker = {
+# 									add_gold = 80
+# 									add_prestige_experience = 80
+# 								}
+# 							}
+# 						}
+# 					}
+# 				}
+# 				every_sub_realm_barony = {
+# 					title_province = {
+# 						if = {
+# 							limit = { NOT = { has_province_modifier = recently_looted_modifier } }
+# 							add_province_modifier = {
+# 								modifier = recently_looted_modifier
+# 								years = 5
+# 							}
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
 
-		# destroy temp title
-		hidden_effect = {
-			scope:attacker.primary_title = {
-				if = {
-					limit = {
-						has_variable = temporary_title
-					}
-					save_scope_as = destroyable_title
-					scope:attacker = { destroy_title = scope:destroyable_title }
-				}
-			}
-		}
+# 		# destroy temp title
+# 		hidden_effect = {
+# 			scope:attacker.primary_title = {
+# 				if = {
+# 					limit = {
+# 						has_variable = temporary_title
+# 					}
+# 					save_scope_as = destroyable_title
+# 					scope:attacker = { destroy_title = scope:destroyable_title }
+# 				}
+# 			}
+# 		}
 
-		# Prestige Progress for the Attacker
-		every_in_list = {
-			list = target_titles
-			scope:attacker = {
-				add_prestige_experience = minor_prestige_value
-			}
-		}
+# 		# Prestige Progress for the Attacker
+# 		every_in_list = {
+# 			list = target_titles
+# 			scope:attacker = {
+# 				add_prestige_experience = minor_prestige_value
+# 			}
+# 		}
 
-		# Allies on both sides get full prestige value for helping in the war, based on their war participation.
-		modify_allies_of_participants_fame_values = {
-			WINNER = scope:attacker
-			FAME_BASE = minor_prestige_value
-			IS_RELIGIOUS_WAR = no
-			WINNER_ALLY_FAME_SCALE = 0
-			LOSER_ALLY_FAME_SCALE = 1
-		}
+# 		# Allies on both sides get full prestige value for helping in the war, based on their war participation.
+# 		modify_allies_of_participants_fame_values = {
+# 			WINNER = scope:attacker
+# 			FAME_BASE = minor_prestige_value
+# 			IS_RELIGIOUS_WAR = no
+# 			WINNER_ALLY_FAME_SCALE = 0
+# 			LOSER_ALLY_FAME_SCALE = 1
+# 		}
 
-		# Truce
-		add_truce_attacker_victory_effect = yes
-		scope:attacker = { fp1_remember_recent_conquest_victory_effect = yes }
-	}
+# 		# Truce
+# 		add_truce_attacker_victory_effect = yes
+# 		scope:attacker = { fp1_remember_recent_conquest_victory_effect = yes }
+# 	}
 
-	on_white_peace_desc = {
-		desc = WHITE_PEACE_DISABLED
-	}
+# 	on_white_peace_desc = {
+# 		desc = WHITE_PEACE_DISABLED
+# 	}
 
-	# 攻撃者が負けたとき
-	on_defeat_desc = {
-		first_valid = {
-			triggered_desc = {
-				trigger = { scope:defender = { is_local_player = yes } }
-				desc = county_conquest_cb_defeat_desc_defender
-			}
-			triggered_desc = {
-				trigger = {
-					scope:attacker = {
-						is_local_player = yes
-						has_targeting_faction = yes
-					}
-				}
-				desc = county_conquest_cb_defeat_desc_attacker
-			}
-			desc = county_conquest_cb_defeat_desc
-		}
-	}
+# 	# 攻撃者が負けたとき
+# 	on_defeat_desc = {
+# 		first_valid = {
+# 			triggered_desc = {
+# 				trigger = { scope:defender = { is_local_player = yes } }
+# 				desc = county_conquest_cb_defeat_desc_defender
+# 			}
+# 			triggered_desc = {
+# 				trigger = {
+# 					scope:attacker = {
+# 						is_local_player = yes
+# 						has_targeting_faction = yes
+# 					}
+# 				}
+# 				desc = county_conquest_cb_defeat_desc_attacker
+# 			}
+# 			desc = county_conquest_cb_defeat_desc
+# 		}
+# 	}
 
-	on_defeat = {
-		#EP2 accolade glory gain for winning against higher ranked enemy
-		scope:defender = { accolade_defender_war_end_glory_gain_med_effect = yes }
+# 	on_defeat = {
+# 		#EP2 accolade glory gain for winning against higher ranked enemy
+# 		scope:defender = { accolade_defender_war_end_glory_gain_med_effect = yes }
 
-		# Prestige loss for the attacker
-		scope:attacker = {
-			pay_short_term_gold_reparations_effect = {
-				GOLD_VALUE = 3
-			}
-			add_prestige = {
-				value = major_prestige_value
-				multiply = -1.0
-			}
-		}
+# 		# Prestige loss for the attacker
+# 		scope:attacker = {
+# 			pay_short_term_gold_reparations_effect = {
+# 				GOLD_VALUE = 3
+# 			}
+# 			add_prestige = {
+# 				value = major_prestige_value
+# 				multiply = -1.0
+# 			}
+# 		}
 
-		# Prestige for Defender
-		scope:defender = {
-			add_prestige_war_defender_effect = {
-				PRESTIGE_VALUE = major_prestige_value
-			}
-		}
+# 		# Prestige for Defender
+# 		scope:defender = {
+# 			add_prestige_war_defender_effect = {
+# 				PRESTIGE_VALUE = major_prestige_value
+# 			}
+# 		}
 
-		# Allies on both sides get full prestige value for helping in the war, based on their war participation.
-		modify_allies_of_participants_fame_values = {
-			WINNER = scope:defender
-			FAME_BASE = medium_prestige_value
-			IS_RELIGIOUS_WAR = no
-			WINNER_ALLY_FAME_SCALE = 1
-			LOSER_ALLY_FAME_SCALE = 1
-		}
+# 		# Allies on both sides get full prestige value for helping in the war, based on their war participation.
+# 		modify_allies_of_participants_fame_values = {
+# 			WINNER = scope:defender
+# 			FAME_BASE = medium_prestige_value
+# 			IS_RELIGIOUS_WAR = no
+# 			WINNER_ALLY_FAME_SCALE = 1
+# 			LOSER_ALLY_FAME_SCALE = 1
+# 		}
 
-		add_truce_attacker_defeat_effect = yes
+# 		add_truce_attacker_defeat_effect = yes
 
-		scope:attacker = {
-			save_temporary_scope_as = loser
-		}
+# 		scope:attacker = {
+# 			save_temporary_scope_as = loser
+# 		}
 
-		on_lost_aggression_war_discontent_loss = yes
-	}
+# 		on_lost_aggression_war_discontent_loss = yes
+# 	}
 
-	transfer_behavior = transfer
+# 	transfer_behavior = transfer
 
-	on_primary_attacker_death = inherit
-	on_primary_defender_death = inherit
+# 	on_primary_attacker_death = inherit
+# 	on_primary_defender_death = inherit
 
-	attacker_allies_inherit = yes
-	defender_allies_inherit = yes
+# 	attacker_allies_inherit = yes
+# 	defender_allies_inherit = yes
 
-	war_name = "BARBARIAN_MIGRATION_CB_INVASION_WAR_NAME"
-	war_name_base = "BARBARIAN_MIGRATION_CB_INVASION_WAR_NAME_BASE"
-	cb_name = "BARBARIAN_MIGRATION_AI_CB_NAME"
+# 	war_name = "BARBARIAN_MIGRATION_CB_INVASION_WAR_NAME"
+# 	war_name_base = "BARBARIAN_MIGRATION_CB_INVASION_WAR_NAME_BASE"
+# 	cb_name = "BARBARIAN_MIGRATION_AI_CB_NAME"
 
-	interface_priority = 79
+# 	interface_priority = 79
 
-	use_de_jure_wargoal_only = yes
+# 	use_de_jure_wargoal_only = yes
 
-	attacker_wargoal_percentage = 0.8
-}
+# 	attacker_wargoal_percentage = 0.8
+# }

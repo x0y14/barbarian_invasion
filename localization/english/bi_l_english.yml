@@ -68,7 +68,7 @@
   setting_barbarian_migration_protect_off_desc:0 "There is #V always#! the possibility of being selected for a migration war. #EMP This could have a major impact on the Persian Struggle#!."
 
   # 略奪者派遣
-  rule_barbarian_migration_landless_raiders:0 "MOD Landless Raiders"
+  rule_barbarian_migration_landless_raiders:0 "MOD Unimplemented Turkic Invaders"
   ## 決して
   setting_barbarian_migration_landless_raiders_never:0 "Never"
   setting_barbarian_migration_landless_raiders_never_desc:0 "Default. Rulers of tribal governments above the kingdom level #V Never#! send raiders to enemy countries."
