@@ -1071,7 +1071,7 @@ barbarian_migration_ai = {
 
 		hidden_effect = {
 			if = {
-				limit = { NOT = has_game_rule = barbarian_migration_frequency_apocalyptic }
+				limit = { NOT = { has_game_rule = barbarian_migration_frequency_apocalyptic } }
 				scope:attacker = {
 					add_character_flag = {
 						flag = bm_cb_cooldown
@@ -2379,158 +2379,158 @@ direct_barbarian_settlement = {
 
 			# ## 自分の持ってた放棄した土地をローカルな宗教、文化の人に渡す
 			# ## Distribute scope:attacker's old domains to peasant vassals of the local culture/faith.
-			custom_tooltip = fp1_varangian_adventurer_conquest.summaries.old_domains
-			every_held_title = {
-				limit = {
-					tier = tier_county
-					kingdom = {
-						NOT = { this = scope:target }
-					}
-				}
-				# Grab the county for ease of reference.
-				save_temporary_scope_as = current_county
-				# Create an elevated peasant to claim the county.
-				create_character = {
-					location = scope:current_county.title_province
-					template = old_country_local_warlord_template
-					save_temporary_scope_as = local_warlord
-				}
-				# Assign the seceding title to the new upstart.
-				create_title_and_vassal_change = {
-					type = usurped
-					save_scope_as = change
-					add_claim_on_loss = no
-				}
-				hidden_effect = {
-					scope:current_county = {
-						change_title_holder = {
-							holder = scope:local_warlord
-							change = scope:change
-							take_baronies = yes
-						}
-					}
-				}
-				resolve_title_and_vassal_change = scope:change
-				# And give them their independence.
-				create_title_and_vassal_change = {
-					type = independency
-					save_scope_as = change
-					add_claim_on_loss = no
-				}
-				hidden_effect = {
-					scope:local_warlord = {
-						becomes_independent = { change = scope:change }
-						save_scope_as = truce_loc
-						add_truce_both_ways = {
-							character = scope:attacker
-							days = 3650
-							name = FP1_VARANGIAN_ADVENTURER_INDEPENDENCE_TRUCE_NAME
-						}
-					}
-				}
-				resolve_title_and_vassal_change = scope:change
-			}
-			## 家族の持ってた放棄した土地をローカルな宗教、文化の人に渡す
-			## Distribute landed family's domains outside of the colony to peasant vassals of the local culture/faith.
-			custom_tooltip = fp1_varangian_adventurer_conquest.summaries.landed_family_old_domains
-			every_in_list = {
-				list = vassal_family_processed_list
-				every_held_title = {
-					limit = {
-						tier = tier_county
-						kingdom = {
-							NOT = { this = scope:target }
-						}
-					}
-					# Grab the county for ease of reference.
-					save_temporary_scope_as = current_county
-					# Create an elevated peasant to claim the county.
-					create_character = {
-						location = scope:current_county.title_province
-						template = old_country_local_warlord_template
-						save_temporary_scope_as = local_warlord
-					}
-					# Assign the seceding title to the new upstart.
-					create_title_and_vassal_change = {
-						type = usurped
-						save_scope_as = change
-						add_claim_on_loss = no
-					}
-					hidden_effect = {
-						scope:current_county = {
-							change_title_holder = {
-								holder = scope:local_warlord
-								change = scope:change
-								take_baronies = yes
-							}
-						}
-					}
-					resolve_title_and_vassal_change = scope:change
-					# And give them their independence.
-					create_title_and_vassal_change = {
-						type = independency
-						save_scope_as = change
-						add_claim_on_loss = no
-					}
-					hidden_effect = {
-						scope:local_warlord = {
-							becomes_independent = { change = scope:change }
-							save_scope_as = truce_loc
-							add_truce_both_ways = {
-								character = scope:attacker
-								days = 3650
-								name = FP1_VARANGIAN_ADVENTURER_INDEPENDENCE_TRUCE_NAME
-							}
-						}
-					}
-					resolve_title_and_vassal_change = scope:change
-					# 同じ宗教、文化だったら部族に
-					hidden_effect = {
-						if = {
-							limit = {
-								scope:local_warlord.faith = scope:attacker.faith
-								scope:local_warlord.culture = scope:attacker.culture
-							}
-							scope:local_warlord = {
-								change_government = tribal_government
-							}
-						}
-					}
-				}
-			}
-			## 土地を受け取ったひとを独立させる
-			## Give all old vassals outside of the target_titles independence.
-			custom_tooltip = fp1_varangian_adventurer_conquest.summaries.old_vassals
-			every_vassal = {
-				limit = {
-					NOT = {
-						any_held_title = {
-							duchy = {
-								any_in_de_jure_hierarchy = {
-									this = scope:target
-								}
-							}
-						}
-					}
-					NOT = { is_close_or_extended_family_of = scope:attacker }
-					NOT = { is_primary_heir_of = scope:attacker }
-				}
-				create_title_and_vassal_change = {
-					type = independency
-					save_scope_as = change
-					add_claim_on_loss = no
-				}
-				hidden_effect = {
-					becomes_independent = { change = scope:change }
-					save_scope_as = truce_loc
-					add_truce_both_ways = {
-						character = scope:attacker
-						days = 3650
-						name = FP1_VARANGIAN_ADVENTURER_INDEPENDENCE_TRUCE_NAME
-					}
-				}
-				resolve_title_and_vassal_change = scope:change
-			}
+			# custom_tooltip = fp1_varangian_adventurer_conquest.summaries.old_domains
+			# every_held_title = {
+			# 	limit = {
+			# 		tier = tier_county
+			# 		kingdom = {
+			# 			NOT = { this = scope:target }
+			# 		}
+			# 	}
+			# 	# Grab the county for ease of reference.
+			# 	save_temporary_scope_as = current_county
+			# 	# Create an elevated peasant to claim the county.
+			# 	create_character = {
+			# 		location = scope:current_county.title_province
+			# 		template = old_country_local_warlord_template
+			# 		save_temporary_scope_as = local_warlord
+			# 	}
+			# 	# Assign the seceding title to the new upstart.
+			# 	create_title_and_vassal_change = {
+			# 		type = usurped
+			# 		save_scope_as = change
+			# 		add_claim_on_loss = no
+			# 	}
+			# 	hidden_effect = {
+			# 		scope:current_county = {
+			# 			change_title_holder = {
+			# 				holder = scope:local_warlord
+			# 				change = scope:change
+			# 				take_baronies = yes
+			# 			}
+			# 		}
+			# 	}
+			# 	resolve_title_and_vassal_change = scope:change
+			# 	# And give them their independence.
+			# 	create_title_and_vassal_change = {
+			# 		type = independency
+			# 		save_scope_as = change
+			# 		add_claim_on_loss = no
+			# 	}
+			# 	hidden_effect = {
+			# 		scope:local_warlord = {
+			# 			becomes_independent = { change = scope:change }
+			# 			save_scope_as = truce_loc
+			# 			add_truce_both_ways = {
+			# 				character = scope:attacker
+			# 				days = 3650
+			# 				name = FP1_VARANGIAN_ADVENTURER_INDEPENDENCE_TRUCE_NAME
+			# 			}
+			# 		}
+			# 	}
+			# 	resolve_title_and_vassal_change = scope:change
+			# }
+			# ## 家族の持ってた放棄した土地をローカルな宗教、文化の人に渡す
+			# ## Distribute landed family's domains outside of the colony to peasant vassals of the local culture/faith.
+			# custom_tooltip = fp1_varangian_adventurer_conquest.summaries.landed_family_old_domains
+			# every_in_list = {
+			# 	list = vassal_family_processed_list
+			# 	every_held_title = {
+			# 		limit = {
+			# 			tier = tier_county
+			# 			kingdom = {
+			# 				NOT = { this = scope:target }
+			# 			}
+			# 		}
+			# 		# Grab the county for ease of reference.
+			# 		save_temporary_scope_as = current_county
+			# 		# Create an elevated peasant to claim the county.
+			# 		create_character = {
+			# 			location = scope:current_county.title_province
+			# 			template = old_country_local_warlord_template
+			# 			save_temporary_scope_as = local_warlord
+			# 		}
+			# 		# Assign the seceding title to the new upstart.
+			# 		create_title_and_vassal_change = {
+			# 			type = usurped
+			# 			save_scope_as = change
+			# 			add_claim_on_loss = no
+			# 		}
+			# 		hidden_effect = {
+			# 			scope:current_county = {
+			# 				change_title_holder = {
+			# 					holder = scope:local_warlord
+			# 					change = scope:change
+			# 					take_baronies = yes
+			# 				}
+			# 			}
+			# 		}
+			# 		resolve_title_and_vassal_change = scope:change
+			# 		# And give them their independence.
+			# 		create_title_and_vassal_change = {
+			# 			type = independency
+			# 			save_scope_as = change
+			# 			add_claim_on_loss = no
+			# 		}
+			# 		hidden_effect = {
+			# 			scope:local_warlord = {
+			# 				becomes_independent = { change = scope:change }
+			# 				save_scope_as = truce_loc
+			# 				add_truce_both_ways = {
+			# 					character = scope:attacker
+			# 					days = 3650
+			# 					name = FP1_VARANGIAN_ADVENTURER_INDEPENDENCE_TRUCE_NAME
+			# 				}
+			# 			}
+			# 		}
+			# 		resolve_title_and_vassal_change = scope:change
+			# 		# 同じ宗教、文化だったら部族に
+			# 		hidden_effect = {
+			# 			if = {
+			# 				limit = {
+			# 					scope:local_warlord.faith = scope:attacker.faith
+			# 					scope:local_warlord.culture = scope:attacker.culture
+			# 				}
+			# 				scope:local_warlord = {
+			# 					change_government = tribal_government
+			# 				}
+			# 			}
+			# 		}
+			# 	}
+			# }
+			# ## 土地を受け取ったひとを独立させる
+			# ## Give all old vassals outside of the target_titles independence.
+			# custom_tooltip = fp1_varangian_adventurer_conquest.summaries.old_vassals
+			# every_vassal = {
+			# 	limit = {
+			# 		NOT = {
+			# 			any_held_title = {
+			# 				duchy = {
+			# 					any_in_de_jure_hierarchy = {
+			# 						this = scope:target
+			# 					}
+			# 				}
+			# 			}
+			# 		}
+			# 		NOT = { is_close_or_extended_family_of = scope:attacker }
+			# 		NOT = { is_primary_heir_of = scope:attacker }
+			# 	}
+			# 	create_title_and_vassal_change = {
+			# 		type = independency
+			# 		save_scope_as = change
+			# 		add_claim_on_loss = no
+			# 	}
+			# 	hidden_effect = {
+			# 		becomes_independent = { change = scope:change }
+			# 		save_scope_as = truce_loc
+			# 		add_truce_both_ways = {
+			# 			character = scope:attacker
+			# 			days = 3650
+			# 			name = FP1_VARANGIAN_ADVENTURER_INDEPENDENCE_TRUCE_NAME
+			# 		}
+			# 	}
+			# 	resolve_title_and_vassal_change = scope:change
+			# }
 			# <-手放す土地について
 
 			# 家族の移動->
