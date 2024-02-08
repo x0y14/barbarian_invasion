@@ -1,4 +1,4 @@
-﻿bi_looter_template = {
+﻿bi_raider_template = {
 	age = { 16 32 }
 	culture = scope:actor.culture
 	faith = scope:actor.faith

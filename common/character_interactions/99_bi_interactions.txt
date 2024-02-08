@@ -1,15 +1,15 @@
-﻿dispatch_landless_looters_interaction = {
+﻿dispatch_landless_raiders_interaction = {
 	interface_priority = 100
 	common_interaction = yes
 	category = interaction_category_hostile
-	cooldown_against_recipient = { years = 2 }
+	cooldown_against_recipient = { years = 1 }
 
 	icon = request_mercenary
-	desc = dispatch_landless_looters_interaction_desc
+	desc = dispatch_landless_raiders_interaction_desc
 
 	is_shown = {
 		# 無効化されていないこと
-		NOT = { has_game_rule = barbarian_migration_landless_looters_never }
+		NOT = { has_game_rule = barbarian_migration_landless_raiders_never }
 		
 		scope:actor = {
 			# is_ai = yes
@@ -26,8 +26,21 @@
 				}
 				faith = { has_doctrine_parameter = unreformed }
 			}
-			# 王国以上
-			highest_held_title_tier >= tier_kingdom
+			trigger_if = {
+				limit = {
+					OR = {
+						has_game_rule = barbarian_migration_landless_raiders_occasional
+						has_game_rule = barbarian_migration_landless_raiders_frequent
+					}
+				}
+				highest_held_title_tier >= tier_kingdom
+			}
+			trigger_if = {
+				limit = {
+					has_game_rule = barbarian_migration_landless_raiders_apocalyptic
+				}
+				highest_held_title_tier >= tier_duchy
+			}
 			# 独立している
 			is_independent_ruler = yes
 			# クールダウン
@@ -58,19 +71,19 @@
 				limit = {
 					scope:small_investment = yes
 				}
-				add = 100
+				add = 50
 			}
 			else_if = {
 				limit = {
 					scope:medium_investment = yes
 				}
-				add = 200
+				add = 100
 			}
 			else_if = {
 				limit = {
 					scope:high_investment = yes
 				}
-				add = 300
+				add = 150
 			}
 		}
 	}
@@ -110,28 +123,28 @@
 
 	on_accept = {
 		custom_tooltip = {
-			text = dispatch_landless_looters_interaction_tt
+			text = dispatch_landless_raiders_interaction_tt
 			scope:actor = {
 				if = {
 					limit = {
-						NOT = { has_game_rule = barbarian_migration_landless_looters_apocalyptic }
+						NOT = { has_game_rule = barbarian_migration_landless_raiders_apocalyptic }
 					}
 					add_character_flag = {
 						flag = bi_dispatch_cooldown
-						years = DISPATCH_LANDLESS_LOOTERS_COOLDOWN
+						years = DISPATCH_LANDLESS_RAIDERS_COOLDOWN
 					}
 				}
 				create_character = {
-					template = bi_looter_template
+					template = bi_raider_template
 					employer = scope:actor
-					save_scope_as = bi_looter
+					save_scope_as = bi_raider
 				}
 			}
 
 			scope:recipient = {
 				if = {
 					limit = {
-						NOT = { has_game_rule = barbarian_migration_landless_looters_apocalyptic }
+						NOT = { has_game_rule = barbarian_migration_landless_raiders_apocalyptic }
 					}
 					add_character_flag = {
 						flag = bm_cb_protect
@@ -141,11 +154,11 @@
 			}
 	
 			# give temporary title
-			scope:bi_looter = {
+			scope:bi_raider = {
 				# Randomising the names a little.
 				create_dynamic_title = {
 					tier = duchy
-					name = LANDLESS_LOOTERS_TEMP_DUCHY_NAME
+					name = LANDLESS_RAIDERS_TEMP_DUCHY_NAME
 				}
 				create_title_and_vassal_change = {
 					type = created
@@ -162,7 +175,7 @@
 					set_definitive_form = yes
 					set_can_be_named_after_dynasty = no
 					change_title_holder = {
-						holder = scope:bi_looter
+						holder = scope:bi_raider
 						change = scope:change
 					}
 				}
@@ -181,9 +194,9 @@
 					save_scope_as = target_title
 				}
 			}
-			scope:bi_looter = {
+			scope:bi_raider = {
 				start_war = {
-					cb = landless_looters_invasion
+					cb = landless_raiders_invasion
 					target = scope:recipient
 					target_title = scope:target_title
 				}
@@ -194,7 +207,7 @@
 					scope:small_investment = yes
 				}
 				# give troops
-				scope:bi_looter = {
+				scope:bi_raider = {
 					spawn_army = {
 						men_at_arms = {
 							type = horse_archers
@@ -202,7 +215,7 @@
 						}
 						location = scope:actor.capital_county.title_province
 						uses_supply = no
-						inheritable = yes
+						inheritable = no
 						name = turkic_tribal_event_troops
 					}
 				}
@@ -212,7 +225,7 @@
 					scope:medium_investment = yes
 				}
 				# give troops
-				scope:bi_looter = {
+				scope:bi_raider = {
 					spawn_army = {
 						men_at_arms = {
 							type = horse_archers
@@ -220,7 +233,7 @@
 						}
 						location = scope:actor.capital_county.title_province
 						uses_supply = no
-						inheritable = yes
+						inheritable = no
 						name = turkic_tribal_event_troops
 					}
 				}
@@ -230,15 +243,15 @@
 					scope:high_investment = yes
 				}
 				# give troops
-				scope:bi_looter = {
+				scope:bi_raider = {
 					spawn_army = {
 						men_at_arms = {
 							type = horse_archers
-							stacks = 55
+							stacks = 15
 						}
 						location = scope:actor.capital_county.title_province
 						uses_supply = no
-						inheritable = yes
+						inheritable = no
 						name = turkic_tribal_event_troops
 					}
 				}
@@ -246,16 +259,21 @@
 		}
 	}
 
-	use_diplomatic_range = yes
+	use_diplomatic_range = no
 	auto_accept = yes
 
 	can_send_despite_rejection = no
-	ai_frequency = 24
+	ai_frequency = 3
 	ai_targets = {
 		ai_recipients = neighboring_rulers
 	}
 	ai_potential = {
-		always = yes
+		is_at_war = no
+		# NOT = {
+		# 	any_targeting_faction = {
+		# 		is_dangerous_faction_trigger = yes
+		# 	}
+		# }
 	}
 	ai_will_do = {
 		base = 0
@@ -306,13 +324,13 @@
 
 		# 立地
 		modifier = {
-			add = 25
+			add = 50
 			scope:recipient.capital_county.title_province = {
 				OR = {
 					geographical_region = world_asia_minor
 					geographical_region = world_middle_east_persia
-					geographical_region = world_india_deccan
-					geographical_region = world_india_bengal
+					# geographical_region = world_india_deccan
+					# geographical_region = world_india_bengal
 					geographical_region = world_india_rajastan
 				}
 			}
@@ -330,12 +348,20 @@
 			scope:recipient.capital_county.development_level >= 15
 		}
 		modifier = {
-			add = 10
+			add = 20
 			scope:recipient.capital_county.development_level >= 20
 		}
 		modifier = {
-			add = 10
+			add = 30
 			scope:recipient.capital_county.development_level >= 30
+		}
+
+		# 確実なところに送り込む
+		modifier = {
+			add = 50
+			scope:recipient = {
+				highest_held_title_tier <= tier_duchy
+			}
 		}
 	}
 }

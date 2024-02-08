@@ -26,10 +26,10 @@
 
 
   # landless
-  dispatch_landless_looters_interaction:0 "Dispatch landless looters"
-  dispatch_landless_looters_interaction_desc:0 "An exchange for financial assistance, they are forced to commit acts of looting against the enemy state. Looters may settle down"
-  dispatch_landless_looters_interaction_tt:0 "Looters launch migration war on [recipient.GetFirstName]"
-  LANDLESS_LOOTERS_TEMP_DUCHY_NAME:0 "[bi_looter.GetCulture.GetNameNoTooltip] Looters"
+  dispatch_landless_raiders_interaction:0 "Dispatch landless raiders"
+  dispatch_landless_raiders_interaction_desc:0 "An exchange for financial assistance, they are forced to commit acts of looting against the enemy state. raiders may settle down"
+  dispatch_landless_raiders_interaction_tt:0 "Raiders launch migration war on [recipient.GetFirstName]"
+  LANDLESS_RAIDERS_TEMP_DUCHY_NAME:0 "[bi_raider.GetCulture.GetNameNoTooltip] Raiders"
 
   # Rules
 
@@ -68,16 +68,16 @@
   setting_barbarian_migration_protect_off_desc:0 "There is #V always#! the possibility of being selected for a migration war. #EMP This could have a major impact on the Persian Struggle#!."
 
   # 略奪者派遣
-  rule_barbarian_migration_landless_looters:0 "MOD Landless Looters"
+  rule_barbarian_migration_landless_raiders:0 "MOD Landless Raiders"
   ## 決して
-  setting_barbarian_migration_landless_looters_never:0 "Never"
-  setting_barbarian_migration_landless_looters_never_desc:0 "Default. Rulers of tribal governments above the kingdom level #V Never#! send looters to enemy countries."
+  setting_barbarian_migration_landless_raiders_never:0 "Never"
+  setting_barbarian_migration_landless_raiders_never_desc:0 "Default. Rulers of tribal governments above the kingdom level #V Never#! send raiders to enemy countries."
   ## たまに
-  setting_barbarian_migration_landless_looters_occasional:0 "Occasional"
-  setting_barbarian_migration_landless_looters_occasional_desc:0 "Rulers of tribal governments above the kingdom level can send looters to enemy countries every #V 20#! years. #EMP This could have a major impact on the Persian Struggle#!."
+  setting_barbarian_migration_landless_raiders_occasional:0 "Occasional"
+  setting_barbarian_migration_landless_raiders_occasional_desc:0 "Rulers of tribal governments above the kingdom level can send raiders to enemy countries every #V 20#! years. #EMP This could have a major impact on the Persian Struggle#!."
   ## 頻繁
-  setting_barbarian_migration_landless_looters_frequent:0 "Frequent"
-  setting_barbarian_migration_landless_looters_frequent_desc:0 "Rulers of tribal governments above the kingdom level can send looters to enemy countries every #V 10#! years. #EMP This could have a major impact on the Persian Struggle#!."
+  setting_barbarian_migration_landless_raiders_frequent:0 "Frequent"
+  setting_barbarian_migration_landless_raiders_frequent_desc:0 "Rulers of tribal governments above the kingdom level can send raiders to enemy countries every #V 10#! years. #EMP This could have a major impact on the Persian Struggle#!."
   ## 終末的
-  setting_barbarian_migration_landless_looters_apocalyptic:0 "Apocalyptic"
-  setting_barbarian_migration_landless_looters_apocalyptic_desc:0 "Rulers of tribal governments above the kingdom level can send looters to enemy countries #V without restriction#!. #EMP This could have a major impact on the Persian Struggle#!."
+  setting_barbarian_migration_landless_raiders_apocalyptic:0 "Apocalyptic"
+  setting_barbarian_migration_landless_raiders_apocalyptic_desc:0 "Rulers of tribal governments above the duchy level can send raiders to enemy countries #V without restriction#!. #EMP This could have a major impact on the Persian Struggle#!."

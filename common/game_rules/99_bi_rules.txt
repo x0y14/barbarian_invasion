@@ -33,15 +33,15 @@ barbarian_migration_protect = {
 	barbarian_migration_protect_off = {}
 }
 
-barbarian_migration_landless_looters = {
+barbarian_migration_landless_raiders = {
 	categories = {
 		difficulty ai
 	}
 
-	default = barbarian_migration_landless_looters_never
+	default = barbarian_migration_landless_raiders_never
 
-	barbarian_migration_landless_looters_never = {}
-	barbarian_migration_landless_looters_occasional = {}
-	barbarian_migration_landless_looters_frequent = {}
-	barbarian_migration_landless_looters_apocalyptic = {}
+	barbarian_migration_landless_raiders_never = {}
+	barbarian_migration_landless_raiders_occasional = {}
+	barbarian_migration_landless_raiders_frequent = {}
+	barbarian_migration_landless_raiders_apocalyptic = {}
 }

@@ -2133,7 +2133,7 @@ direct_barbarian_settlement = {
 
 		scope:attacker = {
 			hidden_effect = {
-				add_gold = 1000
+				add_gold = 300
 			}
 
 			create_title_and_vassal_change = {
@@ -2563,28 +2563,46 @@ direct_barbarian_settlement = {
 					}
 				}
 				# 未改革宗教を信仰していた場合のみ宗教変更
-				if = {
-					limit = {
-						scope:attacker.faith = { has_doctrine_parameter = unreformed }
+				random_list = {
+					90 = {
+						if = {
+							limit = {
+								scope:attacker.faith = { has_doctrine_parameter = unreformed }
+							}
+							if = {
+								limit = {
+									scope:defender.faith = { NOT = { has_doctrine_parameter = unreformed } }
+								}
+								scope:attacker = {
+									set_character_faith_with_conversion = scope:defender.faith
+								}
+							}
+							else_if = {
+								limit = {
+									exists = scope:new_capital
+									scope:new_capital.faith = { NOT = { has_doctrine_parameter = unreformed } }
+								}
+								scope:attacker = {
+									set_character_faith_with_conversion = scope:new_capital.faith
+								}
+							}
+							else = {
+								random_list = {
+									50 = {
+										scope:attacker = {
+											set_character_faith_with_conversion = faith:maturidi
+										}
+									}
+									50 = {
+										scope:attacker = {
+											set_character_faith_with_conversion = faith:orthodox
+										}
+									}
+								}
+							}
+						}
 					}
-					if = {
-						limit = {
-							scope:defender.faith = { NOT = { has_doctrine_parameter = unreformed } }
-						}
-						scope:attacker = {
-							set_character_faith_with_conversion = scope:defender.faith
-						}
-					}
-					else_if = {
-						limit = {
-							exists = scope:new_capital
-							scope:new_capital.faith = { NOT = { has_doctrine_parameter = unreformed } }
-						}
-						scope:attacker = {
-							set_character_faith_with_conversion = scope:new_capital.faith
-						}
-					}
-					else = {
+					10 = {
 						random_list = {
 							50 = {
 								scope:attacker = {
@@ -2593,7 +2611,7 @@ direct_barbarian_settlement = {
 							}
 							50 = {
 								scope:attacker = {
-									set_character_faith_with_conversion = faith:orthodox
+									set_character_faith_with_conversion = faith:alevi
 								}
 							}
 						}
@@ -2997,7 +3015,7 @@ undirect_barbarian_settlement = {
 }
 
 
-landless_looters_invasion = {
+landless_raiders_invasion = {
 	icon = invasion
 	group = invasion
 
@@ -3059,14 +3077,6 @@ landless_looters_invasion = {
 							target_is_same_character_or_above = scope:defender
 						}
 					}
-				}
-			}
-			scope:attacker = {
-				OR = {
-					# 独立してないとき
-					is_independent_ruler = no
-					# 王国以上を持っているとき
-					highest_held_title_tier >= tier_kingdom
 				}
 			}
 		}
