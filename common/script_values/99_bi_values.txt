@@ -183,8 +183,3 @@ DISPATCH_LANDLESS_LOOTERS_COOLDOWN = {
 		add = 10
 	}
 }
-
-LANDLESS_LOOTERS_CB_NUM_OF_horse_archers_DECLARATION = {
-	value = 0
-	add = 5
-}

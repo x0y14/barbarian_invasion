@@ -53,9 +53,60 @@
 
 	cost = {
 		gold = {
-			value = 100
+			value = 0
+			if = {
+				limit = {
+					scope:small_investment = yes
+				}
+				add = 100
+			}
+			else_if = {
+				limit = {
+					scope:medium_investment = yes
+				}
+				add = 200
+			}
+			else_if = {
+				limit = {
+					scope:high_investment = yes
+				}
+				add = 300
+			}
 		}
 	}
+
+	can_send = {
+		custom_tooltip = {
+			text = must_select_an_investment
+			OR = {
+				scope:small_investment = yes
+				scope:medium_investment = yes
+				scope:high_investment = yes
+			}
+		}
+	}
+
+	send_options_exclusive = yes
+
+	# Small investment
+	send_option = {
+		flag = small_investment
+		localization = small_investment
+		starts_enabled = { always = yes	}
+	}
+
+	# Medium investment
+	send_option = {
+		flag = medium_investment
+		localization = medium_investment
+	}
+
+	# High investment
+	send_option = {
+		flag = high_investment
+		localization = high_investment
+	}
+
 
 	on_accept = {
 		custom_tooltip = {
@@ -137,18 +188,59 @@
 					target_title = scope:target_title
 				}
 			}
-	
-			# give troops
-			scope:bi_looter = {
-				spawn_army = {
-					men_at_arms = {
-						type = horse_archers
-						stacks = LANDLESS_LOOTERS_CB_NUM_OF_horse_archers_DECLARATION
+
+			if = {
+				limit = {
+					scope:small_investment = yes
+				}
+				# give troops
+				scope:bi_looter = {
+					spawn_army = {
+						men_at_arms = {
+							type = horse_archers
+							stacks = 5
+						}
+						location = scope:actor.capital_county.title_province
+						uses_supply = no
+						inheritable = yes
+						name = turkic_tribal_event_troops
 					}
-					location = scope:actor.capital_county.title_province
-					uses_supply = no
-					inheritable = yes
-					name = turkic_tribal_event_troops
+				}
+			}
+			else_if = {
+				limit = {
+					scope:medium_investment = yes
+				}
+				# give troops
+				scope:bi_looter = {
+					spawn_army = {
+						men_at_arms = {
+							type = horse_archers
+							stacks = 10
+						}
+						location = scope:actor.capital_county.title_province
+						uses_supply = no
+						inheritable = yes
+						name = turkic_tribal_event_troops
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					scope:high_investment = yes
+				}
+				# give troops
+				scope:bi_looter = {
+					spawn_army = {
+						men_at_arms = {
+							type = horse_archers
+							stacks = 55
+						}
+						location = scope:actor.capital_county.title_province
+						uses_supply = no
+						inheritable = yes
+						name = turkic_tribal_event_troops
+					}
 				}
 			}
 		}
