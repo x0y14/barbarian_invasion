@@ -1,0 +1,367 @@
+﻿# dispatch_landless_raiders_interaction = {
+# 	interface_priority = 100
+# 	common_interaction = yes
+# 	category = interaction_category_hostile
+# 	cooldown_against_recipient = { years = 1 }
+
+# 	icon = request_mercenary
+# 	desc = dispatch_landless_raiders_interaction_desc
+
+# 	is_shown = {
+# 		# 無効化されていないこと
+# 		NOT = { has_game_rule = barbarian_migration_landless_raiders_never }
+		
+# 		scope:actor = {
+# 			# is_ai = yes
+# 			# テュルク系遊牧民
+# 			has_government = tribal_government
+# 			OR = {
+# 				culture = { has_cultural_pillar = heritage_turkic }
+# 				culture = { has_cultural_pillar = heritage_mongolic }
+# 			}
+# 			OR = {
+# 				AND = {
+# 					current_date >= 1066.1.1
+# 					faith.religion = religion:islam_religion
+# 				}
+# 				faith = { has_doctrine_parameter = unreformed }
+# 			}
+# 			trigger_if = {
+# 				limit = {
+# 					OR = {
+# 						has_game_rule = barbarian_migration_landless_raiders_occasional
+# 						has_game_rule = barbarian_migration_landless_raiders_frequent
+# 					}
+# 				}
+# 				highest_held_title_tier >= tier_kingdom
+# 			}
+# 			trigger_if = {
+# 				limit = {
+# 					has_game_rule = barbarian_migration_landless_raiders_apocalyptic
+# 				}
+# 				highest_held_title_tier >= tier_duchy
+# 			}
+# 			# 独立している
+# 			is_independent_ruler = yes
+# 			# クールダウン
+# 			NOT = { has_character_flag = bi_dispatch_cooldown }
+# 		}
+
+# 		scope:recipient = {
+# 			# 存在確認
+# 			is_landed = yes
+# 			exists = capital_province
+# 			# 最近攻撃されていないこと
+# 			NOT = { has_character_flag = bm_cb_protect }
+# 			# 独立していること
+# 			is_independent_ruler = yes
+# 			# 部族じゃないこと
+# 			NOT = { has_government = tribal_government }
+# 		}
+
+# 		NOT = { scope:actor = scope:recipient }
+# 	}
+
+# 	is_valid_showing_failures_only = {}
+
+# 	cost = {
+# 		gold = {
+# 			value = 0
+# 			if = {
+# 				limit = {
+# 					scope:small_investment = yes
+# 				}
+# 				add = 50
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					scope:medium_investment = yes
+# 				}
+# 				add = 100
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					scope:high_investment = yes
+# 				}
+# 				add = 150
+# 			}
+# 		}
+# 	}
+
+# 	can_send = {
+# 		custom_tooltip = {
+# 			text = must_select_an_investment
+# 			OR = {
+# 				scope:small_investment = yes
+# 				scope:medium_investment = yes
+# 				scope:high_investment = yes
+# 			}
+# 		}
+# 	}
+
+# 	send_options_exclusive = yes
+
+# 	# Small investment
+# 	send_option = {
+# 		flag = small_investment
+# 		localization = small_investment
+# 		starts_enabled = { always = yes	}
+# 	}
+
+# 	# Medium investment
+# 	send_option = {
+# 		flag = medium_investment
+# 		localization = medium_investment
+# 	}
+
+# 	# High investment
+# 	send_option = {
+# 		flag = high_investment
+# 		localization = high_investment
+# 	}
+
+
+# 	on_accept = {
+# 		custom_tooltip = {
+# 			text = dispatch_landless_raiders_interaction_tt
+# 			scope:actor = {
+# 				if = {
+# 					limit = {
+# 						NOT = { has_game_rule = barbarian_migration_landless_raiders_apocalyptic }
+# 					}
+# 					add_character_flag = {
+# 						flag = bi_dispatch_cooldown
+# 						years = DISPATCH_LANDLESS_RAIDERS_COOLDOWN
+# 					}
+# 				}
+# 				create_character = {
+# 					template = bi_raider_template
+# 					employer = scope:actor
+# 					save_scope_as = bi_raider
+# 				}
+# 			}
+
+# 			scope:recipient = {
+# 				if = {
+# 					limit = {
+# 						NOT = { has_game_rule = barbarian_migration_landless_raiders_apocalyptic }
+# 					}
+# 					add_character_flag = {
+# 						flag = bm_cb_protect
+# 						years = BARBARIAN_MIGRATION_CB_FOR_AI_PROTECT
+# 					}
+# 				}
+# 			}
+	
+# 			# give temporary title
+# 			scope:bi_raider = {
+# 				# Randomising the names a little.
+# 				create_dynamic_title = {
+# 					tier = duchy
+# 					name = LANDLESS_RAIDERS_TEMP_DUCHY_NAME
+# 				}
+# 				create_title_and_vassal_change = {
+# 					type = created
+# 					save_scope_as = change
+# 					add_claim_on_loss = no
+# 				}
+# 				scope:new_title = {
+# 					set_capital_county = scope:actor.capital_county
+# 					set_landless_title = yes
+# 					set_destroy_if_invalid_heir = yes
+# 					set_destroy_on_gain_same_tier = yes
+# 					set_delete_on_destroy = yes
+# 					set_no_automatic_claims = yes
+# 					set_definitive_form = yes
+# 					set_can_be_named_after_dynasty = no
+# 					change_title_holder = {
+# 						holder = scope:bi_raider
+# 						change = scope:change
+# 					}
+# 				}
+# 				resolve_title_and_vassal_change = scope:change
+# 				scope:new_title = {
+# 					generate_coa = yes
+# 					set_variable = {
+# 						name = temporary_title
+# 						value = yes
+# 					}
+# 				}
+# 			}
+			
+# 			scope:recipient = {
+# 				random_realm_county = {
+# 					save_scope_as = target_title
+# 				}
+# 			}
+# 			scope:bi_raider = {
+# 				start_war = {
+# 					cb = landless_raiders_invasion
+# 					target = scope:recipient
+# 					target_title = scope:target_title
+# 				}
+# 			}
+
+# 			if = {
+# 				limit = {
+# 					scope:small_investment = yes
+# 				}
+# 				# give troops
+# 				scope:bi_raider = {
+# 					spawn_army = {
+# 						men_at_arms = {
+# 							type = horse_archers
+# 							stacks = 5
+# 						}
+# 						location = scope:actor.capital_county.title_province
+# 						uses_supply = no
+# 						inheritable = no
+# 						name = turkic_tribal_event_troops
+# 					}
+# 				}
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					scope:medium_investment = yes
+# 				}
+# 				# give troops
+# 				scope:bi_raider = {
+# 					spawn_army = {
+# 						men_at_arms = {
+# 							type = horse_archers
+# 							stacks = 10
+# 						}
+# 						location = scope:actor.capital_county.title_province
+# 						uses_supply = no
+# 						inheritable = no
+# 						name = turkic_tribal_event_troops
+# 					}
+# 				}
+# 			}
+# 			else_if = {
+# 				limit = {
+# 					scope:high_investment = yes
+# 				}
+# 				# give troops
+# 				scope:bi_raider = {
+# 					spawn_army = {
+# 						men_at_arms = {
+# 							type = horse_archers
+# 							stacks = 15
+# 						}
+# 						location = scope:actor.capital_county.title_province
+# 						uses_supply = no
+# 						inheritable = no
+# 						name = turkic_tribal_event_troops
+# 					}
+# 				}
+# 			}
+# 		}
+# 	}
+
+# 	use_diplomatic_range = no
+# 	auto_accept = yes
+
+# 	can_send_despite_rejection = no
+# 	ai_frequency = 3
+# 	ai_targets = {
+# 		ai_recipients = neighboring_rulers
+# 	}
+# 	ai_potential = {
+# 		is_at_war = no
+# 		# NOT = {
+# 		# 	any_targeting_faction = {
+# 		# 		is_dangerous_faction_trigger = yes
+# 		# 	}
+# 		# }
+# 	}
+# 	ai_will_do = {
+# 		base = 0
+
+# 		modifier = {
+# 			add = 100
+# 			scope:recipient = {
+# 				has_relation_rival = scope:actor
+# 			}
+# 		}
+
+# 		modifier = {
+# 			factor = 0
+# 			scope:recipient = {
+# 				has_character_flag = incursion_ai_pacing
+# 			}
+# 		}
+
+# 		modifier = {
+# 			factor = 0
+# 			scope:recipient = {
+# 				is_at_war = yes
+# 				is_ai = no
+# 			}
+# 		}
+
+# 		modifier = {
+# 			factor = 0
+# 			scope:recipient = {
+# 				is_ai = no
+# 				is_liege_or_above_of = scope:actor
+# 			}
+# 		}
+
+# 		modifier = {
+# 			factor = 0
+# 			scope:recipient = {
+# 				OR = {
+# 					has_relation_friend = scope:actor
+# 					has_relation_lover = scope:actor
+# 					opinion = {
+# 						target = scope:actor
+# 						value >= 45
+# 					}
+# 				}
+# 			}
+# 		}
+
+# 		# 立地
+# 		modifier = {
+# 			add = 50
+# 			scope:recipient.capital_county.title_province = {
+# 				OR = {
+# 					geographical_region = world_asia_minor
+# 					geographical_region = world_middle_east_persia
+# 					# geographical_region = world_india_deccan
+# 					# geographical_region = world_india_bengal
+# 					geographical_region = world_india_rajastan
+# 				}
+# 			}
+# 		}
+
+# 		# 異教徒
+# 		modifier = {
+# 			add = 25
+# 			NOT = { scope:actor.faith = scope:recipient.faith }
+# 		}
+
+# 		# 開発度
+# 		modifier = {
+# 			add = 10
+# 			scope:recipient.capital_county.development_level >= 15
+# 		}
+# 		modifier = {
+# 			add = 20
+# 			scope:recipient.capital_county.development_level >= 20
+# 		}
+# 		modifier = {
+# 			add = 30
+# 			scope:recipient.capital_county.development_level >= 30
+# 		}
+
+# 		# 確実なところに送り込む
+# 		modifier = {
+# 			add = 50
+# 			scope:recipient = {
+# 				highest_held_title_tier <= tier_duchy
+# 			}
+# 		}
+# 	}
+# }

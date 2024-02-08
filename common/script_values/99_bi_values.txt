@@ -165,9 +165,21 @@ DIRECT_BARBARIAN_SETTLEMENT_CB_FOR_AI_NUM_OF_honager_DECLARATION = {
 
 DIRECT_BARBARIAN_SETTLEMENT_CB_FOR_AI_NUM_OF_horse_archers_ON_VICTORY = {
 	value = 0
-	add = 20
+	add = 5
 }
 DIRECT_BARBARIAN_SETTLEMENT_CB_FOR_AI_NUM_OF_light_horsemen_ON_VICTORY = {
 	value = 0
-	add = 10
+	add = 5
 }
+
+# DISPATCH_LANDLESS_RAIDERS_COOLDOWN = {
+# 	value = 0
+# 	if = {
+# 		limit = { has_game_rule = barbarian_migration_landless_raiders_occasional }
+# 		add = 20
+# 	}
+# 	else_if = {
+# 		limit = { has_game_rule = barbarian_migration_landless_raiders_frequent }
+# 		add = 10
+# 	}
+# }
