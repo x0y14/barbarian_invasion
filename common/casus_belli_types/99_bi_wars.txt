@@ -1070,16 +1070,19 @@ barbarian_migration_ai = {
 		}
 
 		hidden_effect = {
-			scope:attacker = {
-				add_character_flag = {
-					flag = bm_cb_cooldown
-					years = BARBARIAN_MIGRATION_CB_FOR_AI_PROTECT
+			if = {
+				limit = { NOT = has_game_rule = barbarian_migration_frequency_apocalyptic }
+				scope:attacker = {
+					add_character_flag = {
+						flag = bm_cb_cooldown
+						years = BARBARIAN_MIGRATION_CB_FOR_AI_COOLDOWN
+					}
 				}
-			}
-			scope:defender = {
-				add_character_flag = {
-					flag = bm_cb_protect
-					years = BARBARIAN_MIGRATION_CB_FOR_AI_PROTECT
+				scope:defender = {
+					add_character_flag = {
+						flag = bm_cb_protect
+						years = BARBARIAN_MIGRATION_CB_FOR_AI_PROTECT
+					}
 				}
 			}
 		}
