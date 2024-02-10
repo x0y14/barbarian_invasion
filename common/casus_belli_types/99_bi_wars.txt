@@ -1992,10 +1992,21 @@ direct_barbarian_settlement = {
 		}
 
 		# 部族整体ではない
-		NOT = { has_government = tribal_government }
+		# NOT = { has_government = tribal_government }
 
 		# 王国以上
 		# highest_held_title_tier >= tier_duchy
+	}
+
+	valid_to_start = {
+		scope:target.title_capital_county.title_province = {
+			NOR = {
+				# NO STEP
+				geographical_region = world_steppe
+				# NO TIBET
+				geographical_region = world_tibet
+			}
+		}
 	}
 	
 	# cbの設定
@@ -2018,9 +2029,6 @@ direct_barbarian_settlement = {
 	attacker_capital_gives_war_score = no
 	defender_capital_gives_war_score = no
 
-	valid_to_start = {
-		# exists = scope:defender
-	}
 
 	should_invalidate = {
 	}
