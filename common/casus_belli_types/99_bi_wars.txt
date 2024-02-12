@@ -951,10 +951,17 @@ barbarian_migration_ai = {
 
 		OR = {
 			# テングリであれば、異教徒全般
-			AND = {
-				scope:attacker.faith = faith:tengri_pagan
-				scope:attacker.faith.religion = religion:islam_religion
-				NOT = { faith = scope:attacker.faith }
+			trigger_if = {
+				limit = {
+					has_game_rule = barbarian_migration_strength_very_hard
+				}
+				AND = {
+					OR = {
+						scope:attacker.faith = faith:tengri_pagan
+						scope:attacker.faith.religion = religion:islam_religion
+					}
+					NOT = { faith = scope:attacker.faith }
+				}
 			}
 
 			# これ基本
@@ -977,20 +984,46 @@ barbarian_migration_ai = {
 	}
 
 	valid_to_start = {
-		scope:attacker = {
-			total_dev_lv < {
-				value = 0
-				add = {
-					scope:target = {
-						every_in_de_jure_hierarchy = {
-							limit = {
-								tier = tier_county
-								OR = {
-									holder = scope:defender
-									holder = { is_vassal_or_below_of = scope:defender }
+		trigger_if = {
+			limit = {
+				has_game_rule = barbarian_migration_strength_very_hard
+			}
+			scope:attacker = {
+				total_dev_lv <= {
+					value = 0
+					add = {
+						scope:target = {
+							every_in_de_jure_hierarchy = {
+								limit = {
+									tier = tier_county
+									OR = {
+										holder = scope:defender
+										holder = { is_vassal_or_below_of = scope:defender }
+									}
 								}
+								add = this.development_level
 							}
-							add = this.development_level
+						}
+					}
+				}
+			}
+		}
+		trigger_else = {
+			scope:attacker = {
+				total_dev_lv < {
+					value = 0
+					add = {
+						scope:target = {
+							every_in_de_jure_hierarchy = {
+								limit = {
+									tier = tier_county
+									OR = {
+										holder = scope:defender
+										holder = { is_vassal_or_below_of = scope:defender }
+									}
+								}
+								add = this.development_level
+							}
 						}
 					}
 				}
@@ -1599,7 +1632,10 @@ barbarian_migration_ai = {
 				hidden_effect = {
 					if = {
 						limit = {
-							has_game_rule = barbarian_migration_strength_hard
+							OR = {
+								has_game_rule = barbarian_migration_strength_hard
+								has_game_rule = barbarian_migration_strength_very_hard
+							}
 							faith = scope:attacker.faith
 							OR = {
 								faith = faith:tengri_pagan
@@ -1699,7 +1735,10 @@ barbarian_migration_ai = {
 				}
 				else_if = {
 					limit = {
-						has_game_rule = barbarian_migration_strength_hard
+						OR = {
+							has_game_rule = barbarian_migration_strength_hard
+							has_game_rule = barbarian_migration_strength_very_hard
+						}
 					}
 					every_realm_county = {
 						random_list = {
@@ -2005,6 +2044,10 @@ direct_barbarian_settlement = {
 				geographical_region = world_steppe
 				# NO TIBET
 				geographical_region = world_tibet
+				# NO SLAV
+				geographical_region = world_europe_east
+				# NO NORTH INDIA
+				# geographical_region = world_india_rajastan
 			}
 		}
 	}

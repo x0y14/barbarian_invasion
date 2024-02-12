@@ -1,0 +1,45 @@
+﻿remove_subjugation_flag_decision = {
+	picture = "gfx/interface/illustrations/decisions/decision_smith.dds"
+	desc = remove_subjugation_flag_decision_desc
+
+	major = yes
+	
+	is_shown = {
+		has_game_rule = barbarian_migration_strength_very_hard
+		
+		# is_ai = yes
+		is_landed = yes
+		primary_title.tier > tier_barony
+
+		has_government = tribal_government
+		OR = {
+			culture = { has_cultural_pillar = heritage_turkic }
+			culture = { has_cultural_pillar = heritage_mongolic }
+		}
+
+		has_character_flag = used_lifetime_subjugation
+	}
+
+	is_valid = {
+		OR = {
+			faith = faith:tengri_pagan
+			faith.religion = religion:islam_religion
+		}
+		is_independent_ruler = yes
+		has_variable = bm_cb_tally
+	}
+
+	effect = {
+		remove_character_flag = used_lifetime_subjugation
+	}
+
+	ai_check_interval = 24
+
+	ai_potential = {
+		always = yes
+	}
+
+	ai_will_do = {
+		base = 100
+	}
+}

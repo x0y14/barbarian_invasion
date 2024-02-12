@@ -41,6 +41,8 @@
   ## 強い
   setting_barbarian_migration_strength_hard:0 "Hard"
   setting_barbarian_migration_strength_hard_desc:0 "The barbarians can gain a #high large#! number of troops at the start of the war. #EMP This could have a major impact on the Persian Struggle#!."
+  setting_barbarian_migration_strength_very_hard:0 "Very Hard"
+  setting_barbarian_migration_strength_very_hard_desc:0 "The barbarians can gain a #high very large#! number of troops at the start of the war. #EMP This could have a major impact on the Persian Struggle#!."
 
 
   # 頻度
@@ -81,3 +83,9 @@
   ## 終末的
   setting_barbarian_migration_landless_raiders_apocalyptic:0 "Apocalyptic"
   setting_barbarian_migration_landless_raiders_apocalyptic_desc:0 "Rulers of tribal governments above the duchy level can send raiders to enemy countries #V without restriction#!. #EMP This could have a major impact on the Persian Struggle#!."
+
+  # DECISION
+  remove_subjugation_flag_decision:0 "Remove Subjugation Flag"
+  remove_subjugation_flag_decision_desc:0 "Remove Subjugation Flag. FOR AI"
+  remove_subjugation_flag_decision_tooltip:0 "Remove"
+  remove_subjugation_flag_decision_confirm:0 "Confirm"
