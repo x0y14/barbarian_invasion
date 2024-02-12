@@ -101,6 +101,10 @@ BARBARIAN_MIGRATION_CB_FOR_AI_ON_NUM_OF_horse_archers_ON_DECLARATION = {
 		limit = { has_game_rule = barbarian_migration_strength_hard }
 		add = 12
 	}
+	else_if = {
+		limit = { has_game_rule = barbarian_migration_strength_very_hard }
+		add = 18
+	}
 }
 
 BARBARIAN_MIGRATION_CB_FOR_AI_NUM_OF_light_horsemen_ON_DECLARATION = {
@@ -126,6 +130,10 @@ BARBARIAN_MIGRATION_CB_FOR_AI_NUM_OF_light_horsemen_ON_DECLARATION = {
 		limit = { has_game_rule = barbarian_migration_strength_hard }
 		add = 10
 	}
+	else_if = {
+		limit = { has_game_rule = barbarian_migration_strength_very_hard }
+		add = 15
+	}
 }
 
 BARBARIAN_MIGRATION_CB_FOR_AI_NUM_OF_onager_ON_DECLARATION = {
@@ -144,6 +152,10 @@ BARBARIAN_MIGRATION_CB_FOR_AI_NUM_OF_onager_ON_DECLARATION = {
 	else_if = {
 		limit = { has_game_rule = barbarian_migration_strength_hard }
 		add = 10
+	}
+	else_if = {
+		limit = { has_game_rule = barbarian_migration_strength_very_hard }
+		add = 15
 	}
 }
 

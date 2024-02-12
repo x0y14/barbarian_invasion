@@ -7,6 +7,7 @@
 
 	barbarian_migration_strength_normal = {}
 	barbarian_migration_strength_hard = {}
+	barbarian_migration_strength_very_hard = {}
 }
 
 barbarian_migration_frequency = {
